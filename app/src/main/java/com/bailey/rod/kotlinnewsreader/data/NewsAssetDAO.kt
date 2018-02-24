@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * An immutable representation of a single news article.
  */
-data class NewsAsset(
+data class NewsAssetDAO(
 		@SerializedName("id")
 		val id: Long?,
 
@@ -22,4 +22,4 @@ data class NewsAsset(
 		val timeStamp: Long?,
 
 		@SerializedName("relatedImages")
-		val relatedImages: List<RelatedImage>?)
+		val relatedImages: List<RelatedImageDAO>?)

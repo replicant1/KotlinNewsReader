@@ -3,9 +3,9 @@ package com.bailey.rod.kotlinnewsreader.data
 import com.google.gson.annotations.SerializedName
 
 /**
- * An immutable representation of an image that relates in some way to an [NewsAsset]
+ * An immutable representation of an image that relates in some way to an [NewsAssetDAO]
  */
-data class RelatedImage(
+data class RelatedImageDAO(
 		@SerializedName("id")
 		val id: Long?,
 

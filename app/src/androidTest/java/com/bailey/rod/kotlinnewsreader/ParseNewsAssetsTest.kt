@@ -2,9 +2,9 @@ package com.bailey.rod.kotlinnewsreader
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
-import com.bailey.rod.kotlinnewsreader.data.NewsAsset
-import com.bailey.rod.kotlinnewsreader.data.NewsAssetList
-import com.bailey.rod.kotlinnewsreader.data.RelatedImage
+import com.bailey.rod.kotlinnewsreader.data.NewsAssetDAO
+import com.bailey.rod.kotlinnewsreader.data.NewsAssetListDAO
+import com.bailey.rod.kotlinnewsreader.data.RelatedImageDAO
 import com.bailey.rod.kotlinnewsreader.extensions.assetFileAsString
 import com.google.gson.JsonParseException
 import org.junit.Assert.*
@@ -12,10 +12,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
- * Instrumented test, to test parsing of JSON feed into [NewsAssetList]
+ * Instrumented test, to test parsing of JSON feed into [NewsAssetListDAO]
  */
 @RunWith(AndroidJUnit4::class)
-class ParseNewsAssetListTest {
+class ParseNewsAssetsTest {
 	@Test
 	fun useAppContext() {
 		// Context of the app under test.
@@ -31,7 +31,7 @@ class ParseNewsAssetListTest {
 
 	@Test
 	fun testParseJsonFileToCorrectNumberOfNewsAssets() {
-		val assetList: NewsAssetList? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID)
+		val assetList: NewsAssetListDAO? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID)
 		assertNotNull(assetList)
 		assertNotNull(assetList?.assets)
 		assertTrue(assetList?.assets?.isNotEmpty() ?: false)
@@ -40,8 +40,8 @@ class ParseNewsAssetListTest {
 
 	@Test
 	fun testParseJsonFileFirstAsset() {
-		val assetList: NewsAssetList? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID)
-		val firstAsset: NewsAsset? = assetList?.assets?.first()
+		val assetList: NewsAssetListDAO? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID)
+		val firstAsset: NewsAssetDAO? = assetList?.assets?.first()
 		assertNotNull(firstAsset)
 		assertEquals(1029434891L, firstAsset?.id)
 		assertEquals("Qantas set to pay tax again after strong result", firstAsset?.headline)
@@ -52,19 +52,19 @@ class ParseNewsAssetListTest {
 
 	@Test
 	fun testParseJsonFileFirstAssetRelatedImages() {
-		val assetList: NewsAssetList? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID)
-		val firstAsset: NewsAsset? = assetList?.assets?.first()
-		val relatedImages: List<RelatedImage>? = firstAsset?.relatedImages
+		val assetList: NewsAssetListDAO? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID)
+		val firstAsset: NewsAssetDAO? = assetList?.assets?.first()
+		val relatedImages: List<RelatedImageDAO>? = firstAsset?.relatedImages
 		assertNotNull(relatedImages)
 		assertEquals(4, relatedImages?.size)
 	}
 
 	@Test
 	fun testParseJsonFileFirstAssetFirstRelatedImage() {
-		val assetList: NewsAssetList? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID)
-		val firstAsset: NewsAsset? = assetList?.assets?.first()
-		val relatedImages: List<RelatedImage>? = firstAsset?.relatedImages
-		val firstRelatedImage: RelatedImage? = relatedImages?.first()
+		val assetList: NewsAssetListDAO? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID)
+		val firstAsset: NewsAssetDAO? = assetList?.assets?.first()
+		val relatedImages: List<RelatedImageDAO>? = firstAsset?.relatedImages
+		val firstRelatedImage: RelatedImageDAO? = relatedImages?.first()
 
 		assertEquals(1021253707L, firstRelatedImage?.id)
 		assertEquals("https://www.fairfaxstatic.com.au/content/dam/images/g/w/1/0/e/j/image.related.afrArticleInline" +
@@ -75,14 +75,14 @@ class ParseNewsAssetListTest {
 
 	@Test(expected = JsonParseException::class)
 	fun testParseInvalidJsonFileThrowsException() {
-		val assetList: NewsAssetList? = parseJsonFileToAssetList(TEST_JSON_FILE_INVALID)
+		val assetList: NewsAssetListDAO? = parseJsonFileToAssetList(TEST_JSON_FILE_INVALID)
 		println("assetList = $assetList")
 	}
 
-	private fun parseJsonFileToAssetList(jsonFilePath: String): NewsAssetList? {
+	private fun parseJsonFileToAssetList(jsonFilePath: String): NewsAssetListDAO? {
 		val appContext = InstrumentationRegistry.getContext()
 		val jsonString = appContext.assetFileAsString(jsonFilePath)
-		return NewsAssetList.parseAssetJson(jsonString)
+		return NewsAssetListDAO.parseAssetJson(jsonString)
 	}
 
 	private fun readJsonFileToString(): String {
