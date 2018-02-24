@@ -4,7 +4,8 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 
 /**
- * Created by rodbailey on 23/2/18.
+ * An immutable representation of a list of [NewsAsset] instances and corresponds to the entire contents of the
+ * feed's JSON file.
  */
 data class NewsAssetList(
 		@SerializedName("id")
@@ -17,6 +18,14 @@ data class NewsAssetList(
 		val assets: List<NewsAsset>?) {
 
 	companion object {
+
+		/**
+		 * Parses a JSON string to an equivalent domain object.
+		 *
+		 * @param jsonString String containing valid JSON
+		 * @return Domain object containing the data parsed from [jsonString], or null if parsing was
+		 * not possible.
+		 */
 		fun parseAssetJson(jsonString: String): NewsAssetList? {
 			return Gson().fromJson(jsonString, NewsAssetList::class.java)
 		}

@@ -8,7 +8,7 @@ import java.io.IOException
  * Loads a given file from the /assets folder for this app.
  * @param context App context
  * @param assetFileName Simple file name to be loaded.
- * @return Contents of the asset file in String form
+ * @return Contents of the assets file in String form
  */
 @Throws(IOException::class)
 fun Context.assetFileAsString(fileName: String): String {

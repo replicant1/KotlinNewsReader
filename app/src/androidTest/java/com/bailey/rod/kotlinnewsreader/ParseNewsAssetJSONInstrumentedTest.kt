@@ -1,6 +1,5 @@
 package com.bailey.rod.kotlinnewsreader
 
-import android.content.Context
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import com.bailey.rod.kotlinnewsreader.data.NewsAssetList
@@ -17,7 +16,7 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class KotlinInstrumentedTest {
+class ParseNewsAssetJSONInstrumentedTest {
 	@Test
 	fun useAppContext() {
 		// Context of the app under test.
@@ -46,7 +45,7 @@ class KotlinInstrumentedTest {
 	}
 
 	companion object {
-		val TEST_JSON_FILE: String = "fairfax_json.txt"
+		val TEST_JSON_FILE: String = "fairfax_json_14_assets.txt"
 		val NUMBER_OF_ASSETS: Int = 14
 	}
 }
