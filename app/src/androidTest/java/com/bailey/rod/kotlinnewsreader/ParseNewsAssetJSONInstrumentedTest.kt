@@ -6,6 +6,8 @@ import com.bailey.rod.kotlinnewsreader.data.NewsAsset
 import com.bailey.rod.kotlinnewsreader.data.NewsAssetList
 import com.bailey.rod.kotlinnewsreader.data.RelatedImage
 import com.bailey.rod.kotlinnewsreader.extensions.assetFileAsString
+import com.google.gson.JsonParseException
+import com.google.gson.JsonSyntaxException
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -34,7 +36,7 @@ class ParseNewsAssetJSONInstrumentedTest {
 
 	@Test
 	fun testParseJsonFileToCorrectNumberOfNewsAssets() {
-		val assetList: NewsAssetList? = parseJsonFileToAssetList()
+		val assetList: NewsAssetList? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID)
 		assertNotNull(assetList)
 		assertNotNull(assetList?.assets)
 		assertTrue(assetList?.assets?.isNotEmpty() ?: false)
@@ -43,7 +45,7 @@ class ParseNewsAssetJSONInstrumentedTest {
 
 	@Test
 	fun testParseJsonFileFirstAsset() {
-		val assetList: NewsAssetList? = parseJsonFileToAssetList()
+		val assetList: NewsAssetList? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID)
 		val firstAsset: NewsAsset? = assetList?.assets?.first()
 		assertNotNull(firstAsset)
 		assertEquals(1029434891L, firstAsset?.id)
@@ -55,7 +57,7 @@ class ParseNewsAssetJSONInstrumentedTest {
 
 	@Test
 	fun testParseJsonFileFirstAssetRelatedImages() {
-		val assetList: NewsAssetList? = parseJsonFileToAssetList()
+		val assetList: NewsAssetList? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID)
 		val firstAsset: NewsAsset? = assetList?.assets?.first()
 		val relatedImages: List<RelatedImage>? = firstAsset?.relatedImages
 		assertNotNull(relatedImages)
@@ -64,7 +66,7 @@ class ParseNewsAssetJSONInstrumentedTest {
 
 	@Test
 	fun testParseJsonFileFirstAssetFirstRelatedImage() {
-		val assetList: NewsAssetList? = parseJsonFileToAssetList()
+		val assetList: NewsAssetList? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID)
 		val firstAsset: NewsAsset? = assetList?.assets?.first()
 		val relatedImages: List<RelatedImage>? = firstAsset?.relatedImages
 		val firstRelatedImage: RelatedImage? = relatedImages?.first()
@@ -76,18 +78,25 @@ class ParseNewsAssetJSONInstrumentedTest {
 		assertEquals(0, firstRelatedImage?.height)
 	}
 
-	private fun parseJsonFileToAssetList(): NewsAssetList? {
+	@Test(expected = JsonParseException::class)
+	fun testParseInvalidJsonFileThrowsException() {
+		val assetList: NewsAssetList? = parseJsonFileToAssetList(TEST_JSON_FILE_INVALID)
+		println("assetList = $assetList")
+	}
+
+	private fun parseJsonFileToAssetList(jsonFilePath: String): NewsAssetList? {
 		val appContext = InstrumentationRegistry.getContext()
-		val jsonString = appContext.assetFileAsString(TEST_JSON_FILE)
+		val jsonString = appContext.assetFileAsString(jsonFilePath)
 		return NewsAssetList.parseAssetJson(jsonString)
 	}
 
 	private fun parseJsonFileToString(): String {
 		val appContext = InstrumentationRegistry.getContext()
-		return appContext.assetFileAsString(TEST_JSON_FILE)
+		return appContext.assetFileAsString(TEST_JSON_FILE_VALID)
 	}
 
 	companion object {
-		val TEST_JSON_FILE: String = "invalid_json_14_assets.txt"
+		val TEST_JSON_FILE_VALID: String = "valid_json_23FEB2018.txt"
+		val TEST_JSON_FILE_INVALID: String = "invalid_json_truncated.txt"
 	}
 }

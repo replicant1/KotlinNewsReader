@@ -1,0 +1,19 @@
+{
+	"id": 67184313,
+	"categories": [],
+	"authors": [],
+	"url": "/content/dam/lists/1/3/z/z/q/x/list.html",
+	"lastModified": 1519356336345,
+	"onTime": 1425955024417,
+	"sponsored": false,
+	"displayName": "AFR iPad Editor's Choice",
+	"assets": [{
+		"id": 1029434891,
+		"categories": [{
+			"name": "Aviation",
+			"sectionPath": "/business/transport/aviation",
+			"orderNum": 0
+		}],
+		"authors": [{
+			"name": "Jemima Whyte",
+			"title": "Senior Reporter",
