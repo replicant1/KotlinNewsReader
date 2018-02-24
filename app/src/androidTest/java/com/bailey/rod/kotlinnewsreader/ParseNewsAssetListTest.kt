@@ -7,20 +7,15 @@ import com.bailey.rod.kotlinnewsreader.data.NewsAssetList
 import com.bailey.rod.kotlinnewsreader.data.RelatedImage
 import com.bailey.rod.kotlinnewsreader.extensions.assetFileAsString
 import com.google.gson.JsonParseException
-import com.google.gson.JsonSyntaxException
-
+import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
 
-import org.junit.Assert.*
-
 /**
- * Instrumented test, which will execute on an Android device.
- *
- * See [testing documentation](http://d.android.com/tools/testing).
+ * Instrumented test, to test parsing of JSON feed into [NewsAssetList]
  */
 @RunWith(AndroidJUnit4::class)
-class ParseNewsAssetJSONInstrumentedTest {
+class ParseNewsAssetListTest {
 	@Test
 	fun useAppContext() {
 		// Context of the app under test.
@@ -30,7 +25,7 @@ class ParseNewsAssetJSONInstrumentedTest {
 
 	@Test
 	fun testReadJsonFileToString() {
-		val jsonString = parseJsonFileToString()
+		val jsonString = readJsonFileToString()
 		assertTrue(jsonString.isNotBlank())
 	}
 
@@ -90,7 +85,7 @@ class ParseNewsAssetJSONInstrumentedTest {
 		return NewsAssetList.parseAssetJson(jsonString)
 	}
 
-	private fun parseJsonFileToString(): String {
+	private fun readJsonFileToString(): String {
 		val appContext = InstrumentationRegistry.getContext()
 		return appContext.assetFileAsString(TEST_JSON_FILE_VALID)
 	}

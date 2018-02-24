@@ -1,6 +1,7 @@
 package com.bailey.rod.kotlinnewsreader.data
 
 import com.google.gson.Gson
+import com.google.gson.JsonParseException
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -26,6 +27,7 @@ data class NewsAssetList(
 		 * @return Domain object containing the data parsed from [jsonString], or null if parsing was
 		 * not possible.
 		 */
+		@Throws(JsonParseException::class)
 		fun parseAssetJson(jsonString: String): NewsAssetList? {
 			return Gson().fromJson(jsonString, NewsAssetList::class.java)
 		}
