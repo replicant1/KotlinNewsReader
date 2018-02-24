@@ -17,6 +17,10 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        all {
+            buildConfigField "String", "NEWS_DATA_URL", "\"https://bruce-v2-mob.fairfaxmedia.com" +
+                    ".au/1/coding_test/13ZZQX/full\""
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

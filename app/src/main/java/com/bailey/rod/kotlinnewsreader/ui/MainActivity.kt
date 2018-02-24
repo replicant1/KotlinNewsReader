@@ -1,7 +1,9 @@
-package com.bailey.rod.kotlinnewsreader
+package com.bailey.rod.kotlinnewsreader.ui
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.bailey.rod.kotlinnewsreader.BuildConfig
+import com.bailey.rod.kotlinnewsreader.R
 import org.androidannotations.annotations.EActivity
 import timber.log.Timber
 
@@ -16,6 +18,7 @@ open class MainActivity : AppCompatActivity() {
 		if (BuildConfig.DEBUG) {
 			Timber.plant(Timber.DebugTree())
 			Timber.i("KotlinNewsReader started")
+			Timber.i("NEWS_DATA_URL = ${BuildConfig.NEWS_DATA_URL}")
 		}
 	}
 }
