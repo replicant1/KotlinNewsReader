@@ -2,7 +2,9 @@ package com.bailey.rod.kotlinnewsreader
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
+import com.bailey.rod.kotlinnewsreader.data.NewsAsset
 import com.bailey.rod.kotlinnewsreader.data.NewsAssetList
+import com.bailey.rod.kotlinnewsreader.data.RelatedImage
 import com.bailey.rod.kotlinnewsreader.extensions.assetFileAsString
 
 import org.junit.Test
@@ -26,26 +28,66 @@ class ParseNewsAssetJSONInstrumentedTest {
 
 	@Test
 	fun testReadJsonFileToString() {
-		val appContext = InstrumentationRegistry.getContext()
-		val jsonString = appContext.assetFileAsString(TEST_JSON_FILE)
+		val jsonString = parseJsonFileToString()
 		assertTrue(jsonString.isNotBlank())
 	}
 
 	@Test
-	fun testParseJsonFile() {
-		val appContext = InstrumentationRegistry.getContext()
-		val jsonString = appContext.assetFileAsString(TEST_JSON_FILE)
-		val assetList: NewsAssetList? = NewsAssetList.parseAssetJson(jsonString)
+	fun testParseJsonFileToCorrectNumberOfNewsAssets() {
+		val assetList: NewsAssetList? = parseJsonFileToAssetList()
 		assertNotNull(assetList)
 		assertNotNull(assetList?.assets)
 		assertTrue(assetList?.assets?.isNotEmpty() ?: false)
-		assertEquals(NUMBER_OF_ASSETS, assetList?.assets?.size)
-		System.out.println("Number of assets is " + assetList?.assets?.size)
-		System.out.println("asset list is " + assetList)
+		assertEquals(14, assetList?.assets?.size)
+	}
+
+	@Test
+	fun testParseJsonFileFirstAsset() {
+		val assetList: NewsAssetList? = parseJsonFileToAssetList()
+		val firstAsset: NewsAsset? = assetList?.assets?.first()
+		assertNotNull(firstAsset)
+		assertEquals(1029434891L, firstAsset?.id)
+		assertEquals("Qantas set to pay tax again after strong result", firstAsset?.headline)
+		assertEquals("Qantas Airways is expected to begin paying corporate tax again from next year, after reporting " +
+				"a record first half result despite soaring fuel costs.", firstAsset?.abstract)
+		assertEquals("Jemima Whyte ", firstAsset?.byline)
+	}
+
+	@Test
+	fun testParseJsonFileFirstAssetRelatedImages() {
+		val assetList: NewsAssetList? = parseJsonFileToAssetList()
+		val firstAsset: NewsAsset? = assetList?.assets?.first()
+		val relatedImages: List<RelatedImage>? = firstAsset?.relatedImages
+		assertNotNull(relatedImages)
+		assertEquals(4, relatedImages?.size)
+	}
+
+	@Test
+	fun testParseJsonFileFirstAssetFirstRelatedImage() {
+		val assetList: NewsAssetList? = parseJsonFileToAssetList()
+		val firstAsset: NewsAsset? = assetList?.assets?.first()
+		val relatedImages: List<RelatedImage>? = firstAsset?.relatedImages
+		val firstRelatedImage: RelatedImage? = relatedImages?.first()
+
+		assertEquals(1021253707L, firstRelatedImage?.id)
+		assertEquals("https://www.fairfaxstatic.com.au/content/dam/images/g/w/1/0/e/j/image.related.afrArticleInline" +
+				".620x0.h0wd1n.13zzqx.png/1519356336345.jpg", firstRelatedImage?.url)
+		assertEquals(620, firstRelatedImage?.width)
+		assertEquals(0, firstRelatedImage?.height)
+	}
+
+	private fun parseJsonFileToAssetList(): NewsAssetList? {
+		val appContext = InstrumentationRegistry.getContext()
+		val jsonString = appContext.assetFileAsString(TEST_JSON_FILE)
+		return NewsAssetList.parseAssetJson(jsonString)
+	}
+
+	private fun parseJsonFileToString(): String {
+		val appContext = InstrumentationRegistry.getContext()
+		return appContext.assetFileAsString(TEST_JSON_FILE)
 	}
 
 	companion object {
-		val TEST_JSON_FILE: String = "fairfax_json_14_assets.txt"
-		val NUMBER_OF_ASSETS: Int = 14
+		val TEST_JSON_FILE: String = "invalid_json_14_assets.txt"
 	}
 }
