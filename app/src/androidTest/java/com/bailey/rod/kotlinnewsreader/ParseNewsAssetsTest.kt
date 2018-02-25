@@ -80,13 +80,13 @@ class ParseNewsAssetsTest {
 	}
 
 	private fun parseJsonFileToAssetList(jsonFilePath: String): NewsAssetListDAO? {
-		val appContext = InstrumentationRegistry.getContext()
+		val appContext = InstrumentationRegistry.getTargetContext()
 		val jsonString = appContext.assetFileAsString(jsonFilePath)
 		return NewsAssetListDAO.parseAssetJson(jsonString)
 	}
 
 	private fun readJsonFileToString(): String {
-		val appContext = InstrumentationRegistry.getContext()
+		val appContext = InstrumentationRegistry.getTargetContext()
 		return appContext.assetFileAsString(TEST_JSON_FILE_VALID)
 	}
 

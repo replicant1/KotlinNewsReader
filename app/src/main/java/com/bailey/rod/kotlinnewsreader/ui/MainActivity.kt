@@ -1,5 +1,6 @@
 package com.bailey.rod.kotlinnewsreader.ui
 
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
@@ -8,8 +9,12 @@ import android.support.v7.widget.RecyclerView
 import com.bailey.rod.kotlinnewsreader.BuildConfig
 import com.bailey.rod.kotlinnewsreader.R
 import com.bailey.rod.kotlinnewsreader.data.NewsAssetDAO
+import com.bailey.rod.kotlinnewsreader.data.NewsAssetListDAO
+import com.bailey.rod.kotlinnewsreader.extensions.assetFileAsString
+import com.bailey.rod.kotlinnewsreader.extensions.loadFile
 import org.androidannotations.annotations.*
 import timber.log.Timber
+import java.net.URL
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.menu_main_activity_options)
@@ -33,7 +38,6 @@ open class MainActivity : AppCompatActivity() {
 		if (BuildConfig.DEBUG) {
 			Timber.plant(Timber.DebugTree())
 			Timber.i("KotlinNewsReader started")
-			Timber.i("NEWS_DATA_URL = ${BuildConfig.NEWS_DATA_URL}")
 		}
 	}
 
@@ -54,9 +58,37 @@ open class MainActivity : AppCompatActivity() {
 
 	@OptionsItem(R.id.menu_item_refresh_news_assets_list)
 	fun loadNewsAssetsAsync() {
-		adapter = NewsAssetListAdapter(STATIC_ASSETS)
-		recyclerView.adapter = adapter
+		//SimpleURLFileLoadTask("file:///android_asset/valid_json_23FEB2018.txt").execute()
+		val jsonStr: String = applicationContext.assetFileAsString("valid_json_23FEB2018.txt")
+		val assets = NewsAssetListDAO.parseAssetJson(jsonStr)
+		if ((assets != null) && (assets.assets != null)) {
+			adapter = NewsAssetListAdapter((assets.assets))
+			recyclerView.adapter = adapter
+		}
 		swipeRefreshLayout.isRefreshing = false
+	}
+
+	inner class SimpleURLFileLoadTask(val url : String) : AsyncTask<Void, Void, NewsAssetListDAO?>() {
+
+		override fun doInBackground(vararg p0: Void?): NewsAssetListDAO? {
+			val jsonStr: String? = URL(url).loadFile()
+			if (jsonStr != null) {
+				val allAssets = NewsAssetListDAO.parseAssetJson(jsonStr)
+				if ((allAssets != null) && (allAssets.assets != null)) {
+					return NewsAssetListDAO.parseAssetJson(jsonStr)
+				}
+			}
+			return null
+		}
+
+		override fun onPostExecute(result: NewsAssetListDAO?) {
+			if (result?.assets != null) {
+				adapter = NewsAssetListAdapter(result.assets)
+				recyclerView.adapter = adapter
+			}
+			swipeRefreshLayout.isRefreshing = false
+		}
+
 	}
 
 	companion object {
