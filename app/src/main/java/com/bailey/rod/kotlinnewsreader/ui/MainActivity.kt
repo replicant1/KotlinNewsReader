@@ -42,6 +42,7 @@ open class MainActivity : AppCompatActivity() {
 
 		println("-----------------------------")
 		println("Launch intent.data=${intent.data}, intent.dataString=${intent.dataString}")
+		println("Has extra called $JSON_STRING_EXTRA = " + intent.hasExtra(JSON_STRING_EXTRA))
 		println("-----------------------------")
 	}
 
@@ -62,18 +63,25 @@ open class MainActivity : AppCompatActivity() {
 
 	@OptionsItem(R.id.menu_item_refresh_news_assets_list)
 	fun loadNewsAssetsAsync() {
-		val feedURL: String = intent.dataString ?: "https://bruce-v2-mob.fairfaxmedia.com.au/1/coding_test/13ZZQX/full"
-		Timber.i("Loading feed at URL $feedURL")
-		SimpleURLFileLoadTask(feedURL).execute()
+		if (intent.hasExtra(JSON_STRING_EXTRA)) {
+			val jsonString = intent.getStringExtra(JSON_STRING_EXTRA)
+			println("Loading literal JSON from extra")
+			maybeApplyNewsAssetsToList(NewsAssetListDAO.parseAssetJson(jsonString))
+		}
+		else if (intent.data != null) {
+			// Get default URL from BuildConfig?
+			val feedURL: String = intent.dataString ?: "https://bruce-v2-mob.fairfaxmedia.com.au/1/coding_test/13ZZQX/full"
+			Timber.i("Loading feed at URL $feedURL")
+			SimpleURLFileLoadTask(feedURL).execute()
+		}
+	}
 
-//		Timber.i("Commencing load of asset file using a hardcoded filename")
-//		val jsonStr: String = applicationContext.assetFileAsString("valid_json_23FEB2018.txt")
-//		val assets = NewsAssetListDAO.parseAssetJson(jsonStr)
-//		if ((assets != null) && (assets.assets != null)) {
-//			adapter = NewsAssetListAdapter((assets.assets))
-//			recyclerView.adapter = adapter
-//		}
-//		swipeRefreshLayout.isRefreshing = false
+	fun maybeApplyNewsAssetsToList(assets: NewsAssetListDAO?) {
+		if ((assets != null) && (assets.assets != null)) {
+			adapter = NewsAssetListAdapter(assets.assets)
+			recyclerView.adapter = adapter
+		}
+		swipeRefreshLayout.isRefreshing = false
 	}
 
 	inner class SimpleURLFileLoadTask(val url : String) : AsyncTask<Void, Void, NewsAssetListDAO?>() {
@@ -90,16 +98,13 @@ open class MainActivity : AppCompatActivity() {
 		}
 
 		override fun onPostExecute(result: NewsAssetListDAO?) {
-			if (result?.assets != null) {
-				adapter = NewsAssetListAdapter(result.assets)
-				recyclerView.adapter = adapter
-			}
-			swipeRefreshLayout.isRefreshing = false
+			maybeApplyNewsAssetsToList(result)
 		}
 
 	}
 
 	companion object {
+		val JSON_STRING_EXTRA = "JSON"
 		private val STATIC_ASSETS: List<NewsAssetDAO> = listOf(
 				NewsAssetDAO(0, "Headline 0", "Abstract 0", "Byline 0", null, null),
 				NewsAssetDAO(1, "Headline 1", "Abstract 1", "Byline 1", null, null),
