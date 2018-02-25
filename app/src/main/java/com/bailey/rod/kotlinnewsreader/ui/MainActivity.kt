@@ -39,6 +39,10 @@ open class MainActivity : AppCompatActivity() {
 			Timber.plant(Timber.DebugTree())
 			Timber.i("KotlinNewsReader started")
 		}
+
+		println("-----------------------------")
+		println("Launch intent.data=${intent.data}, intent.dataString=${intent.dataString}")
+		println("-----------------------------")
 	}
 
 	@AfterViews
@@ -58,14 +62,18 @@ open class MainActivity : AppCompatActivity() {
 
 	@OptionsItem(R.id.menu_item_refresh_news_assets_list)
 	fun loadNewsAssetsAsync() {
-		//SimpleURLFileLoadTask("file:///android_asset/valid_json_23FEB2018.txt").execute()
-		val jsonStr: String = applicationContext.assetFileAsString("valid_json_23FEB2018.txt")
-		val assets = NewsAssetListDAO.parseAssetJson(jsonStr)
-		if ((assets != null) && (assets.assets != null)) {
-			adapter = NewsAssetListAdapter((assets.assets))
-			recyclerView.adapter = adapter
-		}
-		swipeRefreshLayout.isRefreshing = false
+		val feedURL: String = intent.dataString ?: "https://bruce-v2-mob.fairfaxmedia.com.au/1/coding_test/13ZZQX/full"
+		Timber.i("Loading feed at URL $feedURL")
+		SimpleURLFileLoadTask(feedURL).execute()
+
+//		Timber.i("Commencing load of asset file using a hardcoded filename")
+//		val jsonStr: String = applicationContext.assetFileAsString("valid_json_23FEB2018.txt")
+//		val assets = NewsAssetListDAO.parseAssetJson(jsonStr)
+//		if ((assets != null) && (assets.assets != null)) {
+//			adapter = NewsAssetListAdapter((assets.assets))
+//			recyclerView.adapter = adapter
+//		}
+//		swipeRefreshLayout.isRefreshing = false
 	}
 
 	inner class SimpleURLFileLoadTask(val url : String) : AsyncTask<Void, Void, NewsAssetListDAO?>() {
