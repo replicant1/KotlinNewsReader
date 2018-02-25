@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">KotlinNewsReader</string>
+    <string name="app_name">Kotlin News Reader</string>
+    <string name="refresh_asset_list">Refresh</string>
 </resources>

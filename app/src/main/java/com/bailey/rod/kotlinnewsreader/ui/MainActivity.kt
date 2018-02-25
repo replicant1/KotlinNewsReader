@@ -1,22 +1,25 @@
 package com.bailey.rod.kotlinnewsreader.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.bailey.rod.kotlinnewsreader.BuildConfig
 import com.bailey.rod.kotlinnewsreader.R
 import com.bailey.rod.kotlinnewsreader.data.NewsAssetDAO
-import org.androidannotations.annotations.AfterViews
-import org.androidannotations.annotations.EActivity
-import org.androidannotations.annotations.ViewById
+import org.androidannotations.annotations.*
 import timber.log.Timber
 
 @EActivity(R.layout.activity_main)
+@OptionsMenu(R.menu.menu_main_activity_options)
 open class MainActivity : AppCompatActivity() {
 
 	@ViewById(R.id.rv_news_asset_list)
 	lateinit var recyclerView: RecyclerView
+
+	@ViewById(R.id.srl_news_asset_list_swipe_refresh_layout)
+	lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
 	lateinit var adapter: NewsAssetListAdapter
 
@@ -39,8 +42,21 @@ open class MainActivity : AppCompatActivity() {
 		layoutManager = LinearLayoutManager(this)
 		recyclerView.layoutManager = layoutManager
 
+		loadNewsAssetsAsync()
+
+		swipeRefreshLayout.setOnRefreshListener(
+				SwipeRefreshLayout.OnRefreshListener {
+					println("Refresh - trigger asynch reload of data and show progress monitor")
+					loadNewsAssetsAsync()
+		})
+	}
+
+
+	@OptionsItem(R.id.menu_item_refresh_news_assets_list)
+	fun loadNewsAssetsAsync() {
 		adapter = NewsAssetListAdapter(STATIC_ASSETS)
 		recyclerView.adapter = adapter
+		swipeRefreshLayout.isRefreshing = false
 	}
 
 	companion object {

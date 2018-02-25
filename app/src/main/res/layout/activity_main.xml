@@ -7,15 +7,22 @@
     android:layout_height="match_parent"
     tools:context="com.bailey.rod.kotlinnewsreader.ui.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_news_asset_list"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl_news_asset_list_swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:background="#aacc44"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_news_asset_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#aacc44"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </android.support.constraint.ConstraintLayout>
