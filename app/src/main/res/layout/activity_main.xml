@@ -16,7 +16,7 @@
             android:id="@+id/rv_news_asset_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#aacc44"
+            android:background="#fff"
             android:scrollbars="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

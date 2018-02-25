@@ -23,7 +23,7 @@ import java.io.IOException;
  */
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class EspressoTest {
+public class NewsAssetsListScreenTest {
 
 	@Rule
 	public ActivityTestRule<MainActivity_> activityRule = new ActivityTestRule<MainActivity_>(MainActivity_.class) {

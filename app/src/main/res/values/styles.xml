@@ -8,4 +8,29 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="NewsAssetListItem">
+
+    </style>
+
+    <style name="NewsAssetListItem.Headline">
+        <item name="android:textColor">@color/colorTextHeadline</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="NewsAssetListItem.Byline">
+        <item name="android:textColor">@color/colorTextByline</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="NewsAssetListItem.Abstract">
+        <item name="android:textColor">@color/colorTextAbstract</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
 </resources>
