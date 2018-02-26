@@ -12,6 +12,9 @@ data class RelatedImageDAO(
 		@SerializedName("url")
 		val url: String?,
 
+		@SerializedName("type")
+		val type: String?,
+
 		@SerializedName("width")
 		val width: Int?,
 

@@ -6,7 +6,6 @@ import com.bailey.rod.kotlinnewsreader.data.cache.SimpleNewsAssetCacheSingleton
 import junit.framework.Assert.*
 import org.junit.Before
 import org.junit.Test
-import java.util.*
 
 /**
  * Un-instrumented tests for the SimpleNewsAssetCacheSingleton class.
