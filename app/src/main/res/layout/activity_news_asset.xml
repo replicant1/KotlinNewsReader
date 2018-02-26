@@ -4,11 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_news_asset_details"
+    <WebView
+        android:id="@+id/wv_news_asset"
         android:background="#ab0"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Here is a TextView"/>
+        android:layout_height="match_parent"/>
 
 </FrameLayout>

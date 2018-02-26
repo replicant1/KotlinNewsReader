@@ -1,6 +1,7 @@
 package com.bailey.rod.kotlinnewsreader.ui
 
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
@@ -15,10 +16,12 @@ import com.bailey.rod.kotlinnewsreader.app.command.DefaultProgressMonitor
 import com.bailey.rod.kotlinnewsreader.app.command.ICommandSuccessHandler
 import com.bailey.rod.kotlinnewsreader.data.NewsAssetDAO
 import com.bailey.rod.kotlinnewsreader.data.NewsAssetListDAO
+import com.bailey.rod.kotlinnewsreader.ui.MainActivity.Companion.JSON_STRING_EXTRA
 import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration
 import io.reactivex.disposables.Disposable
 import org.androidannotations.annotations.*
 import timber.log.Timber
+import java.net.URISyntaxException
 
 /**
  *  Intent that launches this activity should either point to the news JSON or literally contain it. This activity
@@ -115,7 +118,13 @@ open class MainActivity : AppCompatActivity() {
 	inner class NewsAssetClickListener() : INewsAssetClickListener {
 		override fun onNewsAssetClick(clickedOn: NewsAssetDAO) {
 			Timber.i("News asset with headline ${clickedOn.headline} was clicked")
-			NewsAssetActivity_.intent(this@MainActivity).start()
+			try {
+				NewsAssetActivity.start(this@MainActivity, Uri.parse(clickedOn.url))
+			}
+			catch (px: URISyntaxException) {
+				Timber.w("User clicked on news asset with unparseable URL for web view", px)
+				// TODO: Alert user with error dialog
+			}
 		}
 	}
 
