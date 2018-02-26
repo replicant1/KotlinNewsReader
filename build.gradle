@@ -4,6 +4,8 @@ buildscript {
     ext.kotlin_version = '1.1.51'
     ext.timber_version = '4.5.1'
     ext.aa_version = '4.3.1'
+    ext.rxjava_version = '2.1.1'
+    ext.rxandroid_version= '2.0.1'
 
     repositories {
         google()

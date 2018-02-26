@@ -1,7 +1,6 @@
 package com.bailey.rod.kotlinnewsreader.ui
 
 import android.graphics.drawable.Drawable
-import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
@@ -10,15 +9,24 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.bailey.rod.kotlinnewsreader.BuildConfig
 import com.bailey.rod.kotlinnewsreader.R
+import com.bailey.rod.kotlinnewsreader.app.command.CommandEngine
+import com.bailey.rod.kotlinnewsreader.app.command.DefaultErrorHandler
+import com.bailey.rod.kotlinnewsreader.app.command.DefaultProgressMonitor
+import com.bailey.rod.kotlinnewsreader.app.command.ICommandSuccessHandler
 import com.bailey.rod.kotlinnewsreader.data.NewsAssetDAO
 import com.bailey.rod.kotlinnewsreader.data.NewsAssetListDAO
-import com.bailey.rod.kotlinnewsreader.extensions.assetFileAsString
-import com.bailey.rod.kotlinnewsreader.extensions.loadFile
 import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration
+import io.reactivex.disposables.Disposable
 import org.androidannotations.annotations.*
 import timber.log.Timber
-import java.net.URL
 
+/**
+ *  Intent that launches this activity should either point to the news JSON or literally contain it. This activity
+ *  looks for the JSON by following this search path in order:
+ * (1) Literal JSON data supplied in [JSON_STRING_EXTRA] of the launch intent
+ * (2) URI to JSON data supplied in the launch intent
+ * (3) The default JSON URL as specified in the BuildConfig parameter DEFAULT_NEWS_ASSETS_JSON_URL
+ */
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.menu_main_activity_options)
 open class MainActivity : AppCompatActivity() {
@@ -67,30 +75,25 @@ open class MainActivity : AppCompatActivity() {
 				SwipeRefreshLayout.OnRefreshListener {
 					println("Refresh - trigger asynch reload of data and show progress monitor")
 					loadNewsAssetsAsync()
-		})
+				})
 	}
 
 
 	@OptionsItem(R.id.menu_item_refresh_news_assets_list)
 	fun loadNewsAssetsAsync() {
-		// Get default URL from BuildConfig?
-
-		val defaultURL = "https://bruce-v2-mob.fairfaxmedia.com.au/1/coding_test/13ZZQX/full"
-		// Sources of news data looked for in priority order:
-		// (1) Literal JSON data supplied in JSON_STRING_EXTRA of the launch intent
-		// (2) URI to JSON data supplied in the launch intent
-		// (3) The default JSON URL as specified in the BuildConfig
 		if (intent.hasExtra(JSON_STRING_EXTRA)) {
 			val jsonString = intent.getStringExtra(JSON_STRING_EXTRA)
 			println("Loading literal JSON from extra")
 			maybeApplyNewsAssetsToList(NewsAssetListDAO.parseAssetJson(jsonString))
-		}
-		else if (intent.dataString != null) {
-			Timber.i("Loading feed at URL ${intent.dataString}")
-			SimpleURLFileLoadTask(intent.dataString).execute()
 		} else {
-			Timber.i("Loading feed at default URL $defaultURL")
-			SimpleURLFileLoadTask(defaultURL).execute()
+			val urlToLoad: String = intent.dataString ?: BuildConfig.DEFAULT_NEWS_ASSETS_JSON_URL
+			Timber.i("Loading feed at URL ${intent.dataString}")
+
+			val disposable: Disposable? = CommandEngine.execute(
+					LoadNewsAssetsCommand(urlToLoad),
+					DefaultProgressMonitor(this, getString(R.string.news_assets_list_load_progress_msg)),
+					LoadNewsAssetsSuccessHandler(),
+					DefaultErrorHandler(this, getString(R.string.news_assets_list_load_progress_msg)))
 		}
 	}
 
@@ -102,23 +105,11 @@ open class MainActivity : AppCompatActivity() {
 		swipeRefreshLayout.isRefreshing = false
 	}
 
-	inner class SimpleURLFileLoadTask(val url : String) : AsyncTask<Void, Void, NewsAssetListDAO?>() {
-
-		override fun doInBackground(vararg p0: Void?): NewsAssetListDAO? {
-			val jsonStr: String? = URL(url).loadFile()
-			if (jsonStr != null) {
-				val allAssets = NewsAssetListDAO.parseAssetJson(jsonStr)
-				if ((allAssets != null) && (allAssets.assets != null)) {
-					return NewsAssetListDAO.parseAssetJson(jsonStr)
-				}
-			}
-			return null
+	inner class LoadNewsAssetsSuccessHandler : ICommandSuccessHandler {
+		override fun onSuccess(result: Any?) {
+			val loadedAssets: NewsAssetListDAO? = result as NewsAssetListDAO?
+			maybeApplyNewsAssetsToList(loadedAssets)
 		}
-
-		override fun onPostExecute(result: NewsAssetListDAO?) {
-			maybeApplyNewsAssetsToList(result)
-		}
-
 	}
 
 	inner class NewsAssetClickListener() : INewsAssetClickListener {
@@ -128,11 +119,8 @@ open class MainActivity : AppCompatActivity() {
 	}
 
 	companion object {
+		// Name of the Intent Extra that can be optionally passed into the launch Intent for this
+		// activity. It's value should be a string of valid JSON in the Fairfax news asset format.
 		val JSON_STRING_EXTRA = "JSON"
-		private val STATIC_ASSETS: List<NewsAssetDAO> = listOf(
-				NewsAssetDAO(0, "Headline 0", "Abstract 0", "Byline 0", null, null, null),
-				NewsAssetDAO(1, "Headline 1", "Abstract 1", "Byline 1", null, null, null),
-				NewsAssetDAO(2, "Headline 2", "Abstract 2", "Byline 2", null, null, null)
-		)
 	}
 }

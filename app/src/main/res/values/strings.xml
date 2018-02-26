@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Kotlin News Reader</string>
     <string name="refresh_asset_list">Refresh</string>
+    <string name="negative_dialog_button">No</string>
+    <string name="positive_dialog_button">Yes</string>
+    <string name="positive_dialog_button_alt">OK</string>
+    <string name="error_dialog_title">Error</string>
 </resources>
