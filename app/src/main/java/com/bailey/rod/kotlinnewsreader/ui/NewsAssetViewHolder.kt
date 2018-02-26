@@ -12,12 +12,14 @@ import com.bailey.rod.kotlinnewsreader.data.NewsAssetDAO
  */
 class NewsAssetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-	fun bind(item: NewsAssetDAO) {
+	fun bind(item: NewsAssetDAO, clickListener: INewsAssetClickListener) {
 		val headlineTextView: TextView = itemView.findViewById<TextView>(R.id.tv_news_asset_headline)
 		val bylineTextView: TextView = itemView.findViewById<TextView>(R.id.tv_news_asset_byline)
 		val abstractTextView: TextView = itemView.findViewById<TextView>(R.id.tv_news_asset_abstract)
 		headlineTextView.text = item.headline
 		bylineTextView.text = item.byline
 		abstractTextView.text = item.abstract
+
+		itemView.setOnClickListener { clickListener.onNewsAssetClick(item) }
 	}
 }

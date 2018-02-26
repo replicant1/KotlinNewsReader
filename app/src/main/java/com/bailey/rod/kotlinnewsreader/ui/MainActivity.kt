@@ -33,6 +33,8 @@ open class MainActivity : AppCompatActivity() {
 
 	lateinit var layoutManager: RecyclerView.LayoutManager
 
+	val newsAssetClickListener: INewsAssetClickListener = NewsAssetClickListener()
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 
@@ -94,7 +96,7 @@ open class MainActivity : AppCompatActivity() {
 
 	fun maybeApplyNewsAssetsToList(assets: NewsAssetListDAO?) {
 		if ((assets != null) && (assets.assets != null)) {
-			adapter = NewsAssetListAdapter(assets.assets)
+			adapter = NewsAssetListAdapter(assets.assets, newsAssetClickListener)
 			recyclerView.adapter = adapter
 		}
 		swipeRefreshLayout.isRefreshing = false
@@ -117,6 +119,12 @@ open class MainActivity : AppCompatActivity() {
 			maybeApplyNewsAssetsToList(result)
 		}
 
+	}
+
+	inner class NewsAssetClickListener() : INewsAssetClickListener {
+		override fun onNewsAssetClick(clickedOn: NewsAssetDAO) {
+			Timber.i("News asset with headline ${clickedOn.headline} was clicked")
+		}
 	}
 
 	companion object {
