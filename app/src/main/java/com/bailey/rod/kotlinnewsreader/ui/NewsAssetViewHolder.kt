@@ -8,6 +8,7 @@ import com.bailey.rod.kotlinnewsreader.R
 import com.bailey.rod.kotlinnewsreader.app.GlideApp
 import com.bailey.rod.kotlinnewsreader.data.NewsAssetDAO
 import com.bailey.rod.kotlinnewsreader.data.thumbnail.SimpleThumbnailSelectionStrategy
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import timber.log.Timber
 
 
@@ -48,6 +49,7 @@ class NewsAssetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 					.load(thumbnail?.url)
 					.centerCrop()
 					.override(thumbnailWidthPx, thumbnailHeightPx)
+					.diskCacheStrategy(DiskCacheStrategy.ALL)
 					.into(thumbnailImageView)
 
 		}
