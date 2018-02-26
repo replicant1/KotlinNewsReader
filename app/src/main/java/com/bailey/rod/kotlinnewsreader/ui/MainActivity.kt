@@ -63,16 +63,24 @@ open class MainActivity : AppCompatActivity() {
 
 	@OptionsItem(R.id.menu_item_refresh_news_assets_list)
 	fun loadNewsAssetsAsync() {
+		// Get default URL from BuildConfig?
+
+		val defaultURL = "https://bruce-v2-mob.fairfaxmedia.com.au/1/coding_test/13ZZQX/full"
+		// Sources of news data looked for in priority order:
+		// (1) Literal JSON data supplied in JSON_STRING_EXTRA of the launch intent
+		// (2) URI to JSON data supplied in the launch intent
+		// (3) The default JSON URL as specified in the BuildConfig
 		if (intent.hasExtra(JSON_STRING_EXTRA)) {
 			val jsonString = intent.getStringExtra(JSON_STRING_EXTRA)
 			println("Loading literal JSON from extra")
 			maybeApplyNewsAssetsToList(NewsAssetListDAO.parseAssetJson(jsonString))
 		}
-		else if (intent.data != null) {
-			// Get default URL from BuildConfig?
-			val feedURL: String = intent.dataString ?: "https://bruce-v2-mob.fairfaxmedia.com.au/1/coding_test/13ZZQX/full"
-			Timber.i("Loading feed at URL $feedURL")
-			SimpleURLFileLoadTask(feedURL).execute()
+		else if (intent.dataString != null) {
+			Timber.i("Loading feed at URL ${intent.dataString}")
+			SimpleURLFileLoadTask(intent.dataString).execute()
+		} else {
+			Timber.i("Loading feed at default URL $defaultURL")
+			SimpleURLFileLoadTask(defaultURL).execute()
 		}
 	}
 

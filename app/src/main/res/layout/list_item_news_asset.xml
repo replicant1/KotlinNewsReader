@@ -5,7 +5,10 @@
               android:layout_height="wrap_content"
               android:orientation="vertical"
               android:background="?android:selectableItemBackground"
+              android:clickable="true"
               android:padding="10dp">
+
+    <!-- Bold headline at top of list item -->
 
     <TextView
         android:id="@+id/tv_news_asset_headline"
@@ -15,6 +18,8 @@
         tools:text="Jabberwocky"
         android:maxLines="2"/>
 
+    <!-- Less distinct byline (author name) is underneath headline, left aligned -->
+
     <TextView
         android:id="@+id/tv_news_asset_byline"
         style="@style/NewsAssetListItem.Byline"
@@ -23,6 +28,8 @@
         android:layout_marginTop="1dp"
         tools:text="Lewis Carroll"
         android:maxLines="1"/>
+
+    <!-- Bulk of the abstract (synopsis) text is at bottom of list item -->
 
     <TextView
         android:id="@+id/tv_news_asset_abstract"
