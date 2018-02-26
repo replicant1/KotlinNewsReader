@@ -115,6 +115,7 @@ open class MainActivity : AppCompatActivity() {
 	inner class NewsAssetClickListener() : INewsAssetClickListener {
 		override fun onNewsAssetClick(clickedOn: NewsAssetDAO) {
 			Timber.i("News asset with headline ${clickedOn.headline} was clicked")
+			NewsAssetActivity_.intent(this@MainActivity).start()
 		}
 	}
 
