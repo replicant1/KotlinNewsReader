@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="list_item_news_asset_list_divider_size">1dp</dimen>
+    <dimen name="asset_list_margin_major">10dp</dimen>
+    <dimen name="asset_list_margin_minor">4dp</dimen>
+    <dimen name="asset_list_thumbnail_image_width">60dp</dimen>
+    <dimen name="asset_list_thumbnail_image_height">60dp</dimen>
+</resources>

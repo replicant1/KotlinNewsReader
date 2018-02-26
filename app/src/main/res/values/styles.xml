@@ -15,7 +15,7 @@
     <style name="NewsAssetListItem.Headline">
         <item name="android:textColor">@color/colorTextHeadline</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:ellipsize">end</item>
     </style>
 

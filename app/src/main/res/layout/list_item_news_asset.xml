@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:background="?android:selectableItemBackground"
-              android:clickable="true"
-              android:padding="10dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:selectableItemBackground"
+                android:clickable="true"
+                android:orientation="vertical"
+                android:padding="@dimen/asset_list_margin_major">
+
+    <!-- Thumbnail image at left of list item -->
+
+    <ImageView
+        android:id="@+id/iv_news_asset_thumbnail"
+        android:layout_width="@dimen/asset_list_thumbnail_image_width"
+        android:layout_height="@dimen/asset_list_thumbnail_image_height"
+        android:layout_marginRight="@dimen/asset_list_margin_major"
+        android:background="@color/colorAccent"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/jabberwocky"/>
 
     <!-- Bold headline at top of list item -->
 
@@ -15,8 +26,10 @@
         style="@style/NewsAssetListItem.Headline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="Jabberwocky"
-        android:maxLines="2"/>
+        android:layout_alignTop="@id/iv_news_asset_thumbnail"
+        android:layout_toRightOf="@id/iv_news_asset_thumbnail"
+        android:maxLines="2"
+        tools:text="Jabberwocky: It is not unusual to have a long headline"/>
 
     <!-- Less distinct byline (author name) is underneath headline, left aligned -->
 
@@ -25,9 +38,11 @@
         style="@style/NewsAssetListItem.Byline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tv_news_asset_headline"
         android:layout_marginTop="1dp"
-        tools:text="Lewis Carroll"
-        android:maxLines="1"/>
+        android:layout_toRightOf="@id/iv_news_asset_thumbnail"
+        android:maxLines="1"
+        tools:text="Lewis Carroll"/>
 
     <!-- Bulk of the abstract (synopsis) text is at bottom of list item -->
 
@@ -35,8 +50,11 @@
         android:id="@+id/tv_news_asset_abstract"
         style="@style/NewsAssetListItem.Abstract"
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        tools:text="`Twas brillig, and the slithy toves did gyre and gimble in the wabe: All mimsy were the borogoves, And the mome raths outgrabe.\n&quot;Beware the Jabberwock, my son! The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun The frumious Bandersnatch!&quot;"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_news_asset_thumbnail"
+        android:layout_marginBottom="@dimen/asset_list_margin_minor"
+        android:layout_marginTop="@dimen/asset_list_margin_major"
+        android:layout_alignParentLeft="true"
+        tools:text="`Twas brillig, and the slithy toves did gyre and gimble in the wabe: All mimsy were the borogoves, And the mome raths outgrabe.\n&quot;Beware the Jabberwock, my son! The jaws that bite, the claws that catch! Beware the Jubjub bird, and shun The frumious Bandersnatch!&quot;"/>
 
-</LinearLayout>
+</RelativeLayout>

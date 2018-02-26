@@ -6,6 +6,6 @@
     <color name="colorTextHeadline">#000000</color>
     <color name="colorTextByline">#999</color>
     <color name="colorTextAbstract">#777</color>
-    <color name="colorListDivider">#bbb</color>
+    <color name="colorListDivider">#eee</color>
     <color name="colorCellBackground">#fff</color>
 </resources>

@@ -1,7 +1,9 @@
 package com.bailey.rod.kotlinnewsreader.ui
 
+import android.graphics.drawable.Drawable
 import android.os.AsyncTask
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -12,6 +14,7 @@ import com.bailey.rod.kotlinnewsreader.data.NewsAssetDAO
 import com.bailey.rod.kotlinnewsreader.data.NewsAssetListDAO
 import com.bailey.rod.kotlinnewsreader.extensions.assetFileAsString
 import com.bailey.rod.kotlinnewsreader.extensions.loadFile
+import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration
 import org.androidannotations.annotations.*
 import timber.log.Timber
 import java.net.URL
@@ -50,6 +53,11 @@ open class MainActivity : AppCompatActivity() {
 	fun afterViews() {
 		layoutManager = LinearLayoutManager(this)
 		recyclerView.layoutManager = layoutManager
+
+		val dividerDrawable: Drawable? = ContextCompat.getDrawable(this, R.drawable.divider_news_asset_list)
+		if (dividerDrawable != null) {
+			recyclerView.addItemDecoration(DividerItemDecoration(dividerDrawable))
+		}
 
 		loadNewsAssetsAsync()
 

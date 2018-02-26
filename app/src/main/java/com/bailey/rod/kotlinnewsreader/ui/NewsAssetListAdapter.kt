@@ -2,6 +2,7 @@ package com.bailey.rod.kotlinnewsreader.ui
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.bailey.rod.kotlinnewsreader.R
@@ -21,8 +22,8 @@ class NewsAssetListAdapter(val newsAssets: List<NewsAssetDAO>) : RecyclerView.Ad
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsAssetViewHolder {
-		val v: LinearLayout = LayoutInflater.from(parent.context).inflate(R.layout.list_item_news_asset, parent,
-				false) as LinearLayout
+		val v: View = LayoutInflater.from(parent.context).inflate(R.layout.list_item_news_asset, parent,
+				false) as View
 		return NewsAssetViewHolder(v)
 	}
 }
