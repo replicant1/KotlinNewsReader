@@ -58,6 +58,10 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.6.1'
 
     // RxAndroid and RxJava
-    compile "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
-    compile "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+
+    // Butterknife
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    kapt 'com.jakewharton:butterknife-compiler:8.8.1'
 }
