@@ -130,9 +130,9 @@ open class MainActivity : AppCompatActivity() {
 	companion object {
 		val JSON_STRING_EXTRA = "JSON"
 		private val STATIC_ASSETS: List<NewsAssetDAO> = listOf(
-				NewsAssetDAO(0, "Headline 0", "Abstract 0", "Byline 0", null, null),
-				NewsAssetDAO(1, "Headline 1", "Abstract 1", "Byline 1", null, null),
-				NewsAssetDAO(2, "Headline 2", "Abstract 2", "Byline 2", null, null)
+				NewsAssetDAO(0, "Headline 0", "Abstract 0", "Byline 0", null, null, null),
+				NewsAssetDAO(1, "Headline 1", "Abstract 1", "Byline 1", null, null, null),
+				NewsAssetDAO(2, "Headline 2", "Abstract 2", "Byline 2", null, null, null)
 		)
 	}
 }

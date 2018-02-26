@@ -11,5 +11,5 @@ interface IThumbnailSelectionStrategy {
 	/**
 	 * @return The related image that is most suitable to use as a thumbnail, or null if no suitable image found
 	 */
-	fun selectThumbnail(potentialThumbnails: Collection<RelatedImageDAO>) : RelatedImageDAO?
+	fun selectThumbnail(images: Collection<RelatedImageDAO>) : RelatedImageDAO?
 }

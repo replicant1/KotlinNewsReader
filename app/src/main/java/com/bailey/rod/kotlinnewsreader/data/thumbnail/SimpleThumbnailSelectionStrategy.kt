@@ -30,7 +30,9 @@ class SimpleThumbnailSelectionStrategy : IThumbnailSelectionStrategy {
 	override fun selectThumbnail(images: Collection<RelatedImageDAO>): RelatedImageDAO? {
 		var result: RelatedImageDAO? = null
 
-		if (images.size == 1) {
+		if (images.isEmpty()) {
+			result = null
+		} else if (images.size == 1) {
 			result = images.iterator().next();
 		} else
 			for (p in images) {
@@ -68,7 +70,7 @@ class SimpleThumbnailSelectionStrategy : IThumbnailSelectionStrategy {
 		return result
 	}
 
-	private fun size(image:RelatedImageDAO): Int {
+	private fun size(image: RelatedImageDAO): Int {
 		return (image.width ?: 0).times(image.height ?: 0)
 	}
 }

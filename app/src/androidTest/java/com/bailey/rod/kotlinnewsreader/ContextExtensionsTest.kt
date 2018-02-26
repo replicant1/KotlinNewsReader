@@ -2,7 +2,7 @@ package com.bailey.rod.kotlinnewsreader
 
 import android.support.test.InstrumentationRegistry
 import com.bailey.rod.kotlinnewsreader.extensions.assetFileAsString
-import junit.framework.Assert.assertNotNull
+import junit.framework.Assert.*
 import org.junit.Test
 import java.io.IOException
 

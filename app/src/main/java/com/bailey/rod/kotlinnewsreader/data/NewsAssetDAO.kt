@@ -21,5 +21,8 @@ data class NewsAssetDAO(
 		@SerializedName("timeStamp")
 		val timeStamp: Long?,
 
+		@SerializedName("url")
+		val url: String?,
+
 		@SerializedName("relatedImages")
 		val relatedImages: List<RelatedImageDAO>?)
