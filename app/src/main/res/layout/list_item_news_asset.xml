@@ -15,7 +15,6 @@
         android:layout_width="@dimen/asset_list_thumbnail_image_width"
         android:layout_height="@dimen/asset_list_thumbnail_image_height"
         android:layout_marginRight="@dimen/asset_list_margin_major"
-        android:background="@color/colorAccent"
         android:scaleType="centerCrop"
         tools:src="@drawable/jabberwocky"/>
 
