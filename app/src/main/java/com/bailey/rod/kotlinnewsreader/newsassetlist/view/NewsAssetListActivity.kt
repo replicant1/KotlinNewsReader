@@ -12,7 +12,6 @@ import com.bailey.rod.kotlinnewsreader.BuildConfig
 import com.bailey.rod.kotlinnewsreader.R
 import com.bailey.rod.kotlinnewsreader.common.BaseViewActivity
 import com.bailey.rod.kotlinnewsreader.data.dao.NewsAssetDAO
-import com.bailey.rod.kotlinnewsreader.data.dao.NewsAssetListDAO
 import com.bailey.rod.kotlinnewsreader.newsassetlist.pres.INewsAssetListPresenter
 import com.bailey.rod.kotlinnewsreader.newsassetlist.pres.NewsAssetListPresenter
 import com.bailey.rod.kotlinnewsreader.newsassetlist.view.NewsAssetListActivity.Companion.JSON_STRING_INTENT_EXTRA
@@ -20,6 +19,7 @@ import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration
 import org.androidannotations.annotations.*
 import timber.log.Timber
 import java.net.URISyntaxException
+import java.util.*
 
 
 /**
@@ -96,11 +96,11 @@ open class NewsAssetListActivity : BaseViewActivity(), INewsAssetListView {
 		presenter.loadNewsAssetList(intent)
 	}
 
-	override fun refresh(listData: NewsAssetListDAO?) {
-		if ((listData != null) && (listData.assets != null)) {
-			adapter = NewsAssetListAdapter(listData.assets, newsAssetClickListener)
-			recyclerView.adapter = adapter
-		}
+	override fun refresh(listData: Collection<NewsAssetDAO>) {
+		val dataAsList = LinkedList<NewsAssetDAO>()
+		dataAsList.addAll(listData)
+		adapter = NewsAssetListAdapter(dataAsList, newsAssetClickListener)
+		recyclerView.adapter = adapter
 		swipeRefreshLayout.isRefreshing = false
 	}
 

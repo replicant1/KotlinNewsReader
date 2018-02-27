@@ -1,4 +1,4 @@
-package com.bailey.rod.kotlinnewsreader.app
+package com.bailey.rod.kotlinnewsreader.app.adapt
 
 import android.support.annotation.StringRes
 import com.bailey.rod.kotlinnewsreader.app.command.ICommandProgressMonitor

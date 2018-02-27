@@ -1,4 +1,4 @@
-package com.bailey.rod.kotlinnewsreader.newsassetlist.pres
+package com.bailey.rod.kotlinnewsreader.newsassetlist.command
 
 import com.bailey.rod.kotlinnewsreader.app.command.ICommand
 import com.bailey.rod.kotlinnewsreader.data.dao.NewsAssetListDAO

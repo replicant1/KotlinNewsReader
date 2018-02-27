@@ -1,4 +1,4 @@
-package com.bailey.rod.kotlinnewsreader.app
+package com.bailey.rod.kotlinnewsreader.app.adapt
 
 import com.bailey.rod.kotlinnewsreader.app.command.ICommandErrorHandler
 import com.bailey.rod.kotlinnewsreader.app.mvp.IErrorView

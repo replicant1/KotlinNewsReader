@@ -1,9 +1,7 @@
 package com.bailey.rod.kotlinnewsreader.newsassetlist.view
 
-import com.bailey.rod.kotlinnewsreader.app.mvp.IErrorView
 import com.bailey.rod.kotlinnewsreader.app.mvp.IView
-import com.bailey.rod.kotlinnewsreader.app.mvp.IProgressView
-import com.bailey.rod.kotlinnewsreader.data.dao.NewsAssetListDAO
+import com.bailey.rod.kotlinnewsreader.data.dao.NewsAssetDAO
 
 /**
  * Implemented by any party showing a list of news article summaries, where each
@@ -15,5 +13,5 @@ interface INewsAssetListView : IView {
 	/**
 	 * Refresh the view from the data provided
 	 */
-	fun refresh(listData: NewsAssetListDAO?)
+	fun refresh(listData: Collection<NewsAssetDAO>)
 }

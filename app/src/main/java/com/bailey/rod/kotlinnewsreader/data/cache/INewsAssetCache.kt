@@ -36,6 +36,11 @@ interface INewsAssetCache {
 	fun get(newsAssetId: Long): NewsAssetDAO?
 
 	/**
+	 * @return Current contents of the cache.
+	 */
+	fun getAll(): Collection<NewsAssetDAO>
+
+	/**
 	 * @param newsAssetId of the news asset to remove from the cache. If no such asset is found, has no effect.
 	 */
 	fun remove(newsAssetId: Long)
