@@ -17,17 +17,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".newsassetlist.view.NewsAssetListActivity_">
+        <activity
+            android:name=".newsassetlist.view.NewsAssetListActivity_"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity android:name=".newsasset.NewsAssetActivity_">
-            <!-- Results in <- Back button automatically appearing in action bar -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".newsassetlist.view.NewsAssetListActivity_"/>
         </activity>
     </application>
 

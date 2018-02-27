@@ -20,6 +20,10 @@ import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration
 import org.androidannotations.annotations.*
 import timber.log.Timber
 import java.net.URISyntaxException
+import android.support.v4.content.ContextCompat.startActivity
+import android.content.Intent
+
+
 
 /**
  *  Intent that launches this activity should either point to the news JSON or literally contain it. This activity
@@ -107,9 +111,10 @@ open class NewsAssetListActivity : BaseViewActivity(), INewsAssetListView {
 		override fun onNewsAssetClick(clickedOn: NewsAssetDAO) {
 			Timber.i("News asset with headline \"${clickedOn.headline}\" was clicked")
 			try {
-				NewsAssetActivity.start(this@NewsAssetListActivity, Uri.parse(clickedOn.url))
+				val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(clickedOn.url))
+				startActivity(browserIntent)
 			} catch (px: URISyntaxException) {
-				Timber.w("User clicked on news asset with un-parsable URI for web view", px)
+				Timber.w("User clicked on news asset with un-parsable URI for news asset", px)
 				showError(R.string.news_assets_list_uri_parse_error)
 			}
 		}

@@ -8,4 +8,5 @@
     <color name="colorTextAbstract">#777</color>
     <color name="colorListDivider">#eee</color>
     <color name="colorCellBackground">#fff</color>
+    <color name="colorMissingElement">#eee</color>
 </resources>
