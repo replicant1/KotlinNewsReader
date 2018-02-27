@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
-import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.filters.LargeTest;
@@ -52,22 +51,43 @@ public class NewsAssetsListScreenTest {
 		}
 	};
 
-	@Test
+//	@Test
 	public void dummyTest() {
 		System.out.println("activity=" + activityRule.getActivity());
 	}
 
-	@Test
-	public void testFirstItemInListIsAboutQuantas() {
+	//@Test
+	public void testFirstItemInListHasCorrectText() {
 //		Espresso.onView(ViewMatchers.withId(R.id.rv_news_asset_list)).perform(RecyclerViewActions
 //				.actionOnItemAtPosition(0, ViewActions.click()));
 
-		// Check item at position 3 has "Some content"
+		// Check item at position 0 has correct headline
 		Espresso.onView(withRecyclerView(R.id.rv_news_asset_list).atPosition(0))
 				.check(matches(hasDescendant(withText("Qantas set to pay tax again after strong result"))));
 
+		// Check item at position 0 has correct byline
+		Espresso.onView(withRecyclerView(R.id.rv_news_asset_list).atPosition(0))
+				.check(matches(hasDescendant(withText("Jemima Whyte "))));
+
+		// Check item at position 0 has correct abstract
+		Espresso.onView(withRecyclerView(R.id.rv_news_asset_list).atPosition(0))
+				.check(matches(hasDescendant(withText("Qantas Airways is expected to begin paying corporate tax again" +
+						" from next year, after reporting a record first half result despite soaring fuel costs."))));
+
 		// Click item at position 3
 		//onView(withRecyclerView(R.id.scroll_view).atPosition(3)).perform(click());
+	}
+
+	@Test
+	public void testOffScreenItemInListHasCorrectText() {
+		// Scroll down so that last list item is visible. Once visible, it's text can be inspected.
+		Espresso.onView(ViewMatchers.withId(R.id.rv_news_asset_list)).perform(RecyclerViewActions.scrollToPosition
+				(13));
+
+		// Check item at position 13 has correct headline
+		Espresso.onView(withRecyclerView(R.id.rv_news_asset_list).atPosition(13))
+				.check(matches(hasDescendant(withText("Crescent finds buyer for Steel-line, investors ready for " +
+						"fundraise"))));
 	}
 
 	public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
