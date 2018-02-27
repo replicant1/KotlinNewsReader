@@ -1,5 +1,6 @@
 package com.bailey.rod.kotlinnewsreader.newsassetlist.view
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
@@ -12,7 +13,6 @@ import com.bailey.rod.kotlinnewsreader.R
 import com.bailey.rod.kotlinnewsreader.common.BaseViewActivity
 import com.bailey.rod.kotlinnewsreader.data.dao.NewsAssetDAO
 import com.bailey.rod.kotlinnewsreader.data.dao.NewsAssetListDAO
-import com.bailey.rod.kotlinnewsreader.newsasset.NewsAssetActivity
 import com.bailey.rod.kotlinnewsreader.newsassetlist.pres.INewsAssetListPresenter
 import com.bailey.rod.kotlinnewsreader.newsassetlist.pres.NewsAssetListPresenter
 import com.bailey.rod.kotlinnewsreader.newsassetlist.view.NewsAssetListActivity.Companion.JSON_STRING_INTENT_EXTRA
@@ -20,9 +20,6 @@ import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration
 import org.androidannotations.annotations.*
 import timber.log.Timber
 import java.net.URISyntaxException
-import android.support.v4.content.ContextCompat.startActivity
-import android.content.Intent
-
 
 
 /**
