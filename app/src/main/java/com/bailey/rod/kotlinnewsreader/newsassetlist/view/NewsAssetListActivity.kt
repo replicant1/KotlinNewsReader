@@ -1,4 +1,4 @@
-package com.bailey.rod.kotlinnewsreader.ui
+package com.bailey.rod.kotlinnewsreader.newsassetlist.view
 
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -14,9 +14,11 @@ import com.bailey.rod.kotlinnewsreader.app.command.CommandEngine
 import com.bailey.rod.kotlinnewsreader.app.command.DefaultErrorHandler
 import com.bailey.rod.kotlinnewsreader.app.command.DefaultProgressMonitor
 import com.bailey.rod.kotlinnewsreader.app.command.ICommandSuccessHandler
-import com.bailey.rod.kotlinnewsreader.data.NewsAssetDAO
-import com.bailey.rod.kotlinnewsreader.data.NewsAssetListDAO
-import com.bailey.rod.kotlinnewsreader.ui.MainActivity.Companion.JSON_STRING_EXTRA
+import com.bailey.rod.kotlinnewsreader.data.dao.NewsAssetDAO
+import com.bailey.rod.kotlinnewsreader.data.dao.NewsAssetListDAO
+import com.bailey.rod.kotlinnewsreader.newsassetlist.view.NewsAssetListActivity.Companion.JSON_STRING_EXTRA
+import com.bailey.rod.kotlinnewsreader.newsasset.NewsAssetActivity
+import com.bailey.rod.kotlinnewsreader.newsassetlist.pres.LoadNewsAssetListCommand
 import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration
 import io.reactivex.disposables.Disposable
 import org.androidannotations.annotations.*
@@ -32,7 +34,7 @@ import java.net.URISyntaxException
  */
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.menu_main_activity_options)
-open class MainActivity : AppCompatActivity() {
+open class NewsAssetListActivity : AppCompatActivity() {
 
 	@ViewById(R.id.rv_news_asset_list)
 	lateinit var recyclerView: RecyclerView
@@ -44,7 +46,7 @@ open class MainActivity : AppCompatActivity() {
 
 	lateinit var layoutManager: RecyclerView.LayoutManager
 
-	val newsAssetClickListener: INewsAssetClickListener = NewsAssetClickListener()
+	val newsAssetClickListener: INewsAssetListItemClickListener = NewsAssetClickListener()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -93,7 +95,7 @@ open class MainActivity : AppCompatActivity() {
 			Timber.i("Loading feed at URL ${intent.dataString}")
 
 			val disposable: Disposable? = CommandEngine.execute(
-					LoadNewsAssetsCommand(urlToLoad),
+					LoadNewsAssetListCommand(urlToLoad),
 					DefaultProgressMonitor(this, getString(R.string.news_assets_list_load_progress_msg)),
 					LoadNewsAssetsSuccessHandler(),
 					DefaultErrorHandler(this, getString(R.string.news_assets_list_load_progress_msg)))
@@ -115,11 +117,11 @@ open class MainActivity : AppCompatActivity() {
 		}
 	}
 
-	inner class NewsAssetClickListener() : INewsAssetClickListener {
+	inner class NewsAssetClickListener() : INewsAssetListItemClickListener {
 		override fun onNewsAssetClick(clickedOn: NewsAssetDAO) {
 			Timber.i("News asset with headline ${clickedOn.headline} was clicked")
 			try {
-				NewsAssetActivity.start(this@MainActivity, Uri.parse(clickedOn.url))
+				NewsAssetActivity.start(this@NewsAssetListActivity, Uri.parse(clickedOn.url))
 			}
 			catch (px: URISyntaxException) {
 				Timber.w("User clicked on news asset with unparseable URL for web view", px)

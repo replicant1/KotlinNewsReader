@@ -1,4 +1,4 @@
-package com.bailey.rod.kotlinnewsreader.ui
+package com.bailey.rod.kotlinnewsreader.newsasset
 
 import android.content.Context
 import android.net.Uri

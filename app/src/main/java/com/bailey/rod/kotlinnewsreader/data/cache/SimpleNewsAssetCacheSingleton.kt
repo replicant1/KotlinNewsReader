@@ -1,6 +1,6 @@
 package com.bailey.rod.kotlinnewsreader.data.cache
 
-import com.bailey.rod.kotlinnewsreader.data.NewsAssetDAO
+import com.bailey.rod.kotlinnewsreader.data.dao.NewsAssetDAO
 
 /**
  * Very simple, in-memory cache of NewsAssetDAO instances.

@@ -2,9 +2,9 @@ package com.bailey.rod.kotlinnewsreader
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
-import com.bailey.rod.kotlinnewsreader.data.NewsAssetDAO
-import com.bailey.rod.kotlinnewsreader.data.NewsAssetListDAO
-import com.bailey.rod.kotlinnewsreader.data.RelatedImageDAO
+import com.bailey.rod.kotlinnewsreader.data.dao.NewsAssetDAO
+import com.bailey.rod.kotlinnewsreader.data.dao.NewsAssetListDAO
+import com.bailey.rod.kotlinnewsreader.data.dao.RelatedImageDAO
 import com.bailey.rod.kotlinnewsreader.extensions.assetFileAsString
 import com.google.gson.JsonParseException
 import org.junit.Assert.*

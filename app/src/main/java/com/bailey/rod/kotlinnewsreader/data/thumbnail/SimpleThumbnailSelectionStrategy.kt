@@ -1,6 +1,6 @@
 package com.bailey.rod.kotlinnewsreader.data.thumbnail
 
-import com.bailey.rod.kotlinnewsreader.data.RelatedImageDAO
+import com.bailey.rod.kotlinnewsreader.data.dao.RelatedImageDAO
 
 /**
  * Created by rodbailey on 26/2/18.

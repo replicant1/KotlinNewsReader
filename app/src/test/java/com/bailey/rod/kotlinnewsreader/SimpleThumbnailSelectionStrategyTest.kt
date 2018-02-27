@@ -1,6 +1,6 @@
 package com.bailey.rod.kotlinnewsreader
 
-import com.bailey.rod.kotlinnewsreader.data.RelatedImageDAO
+import com.bailey.rod.kotlinnewsreader.data.dao.RelatedImageDAO
 import com.bailey.rod.kotlinnewsreader.data.thumbnail.IThumbnailSelectionStrategy
 import com.bailey.rod.kotlinnewsreader.data.thumbnail.SimpleThumbnailSelectionStrategy
 import junit.framework.Assert.assertTrue

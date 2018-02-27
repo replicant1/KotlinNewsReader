@@ -1,7 +1,6 @@
 package com.bailey.rod.kotlinnewsreader.app.command
 
 import android.content.Context
-import com.bailey.rod.kotlinnewsreader.ui.IndeterminateProgressDialog
 
 /**
  * An indeterminate progress monitor

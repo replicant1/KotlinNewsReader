@@ -1,4 +1,4 @@
-package com.bailey.rod.kotlinnewsreader.data
+package com.bailey.rod.kotlinnewsreader.data.dao
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,6 +1,6 @@
 package com.bailey.rod.kotlinnewsreader.data.thumbnail
 
-import com.bailey.rod.kotlinnewsreader.data.RelatedImageDAO
+import com.bailey.rod.kotlinnewsreader.data.dao.RelatedImageDAO
 
 /**
  * A method for selecting which of the images related to a given news asset should be used for the thumbnail image

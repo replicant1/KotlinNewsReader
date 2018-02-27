@@ -1,4 +1,4 @@
-package com.bailey.rod.kotlinnewsreader.ui
+package com.bailey.rod.kotlinnewsreader.app.command
 
 import android.app.ProgressDialog
 import android.content.Context

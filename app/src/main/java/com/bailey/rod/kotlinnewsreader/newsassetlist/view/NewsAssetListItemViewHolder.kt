@@ -1,4 +1,4 @@
-package com.bailey.rod.kotlinnewsreader.ui
+package com.bailey.rod.kotlinnewsreader.newsassetlist.view
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -7,9 +7,10 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.bailey.rod.kotlinnewsreader.R
-import com.bailey.rod.kotlinnewsreader.app.GlideApp
-import com.bailey.rod.kotlinnewsreader.data.NewsAssetDAO
+import com.bailey.rod.kotlinnewsreader.app.glide.GlideApp
+import com.bailey.rod.kotlinnewsreader.data.dao.NewsAssetDAO
 import com.bailey.rod.kotlinnewsreader.data.thumbnail.SimpleThumbnailSelectionStrategy
+import com.bailey.rod.kotlinnewsreader.newsassetlist.view.INewsAssetListItemClickListener
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import timber.log.Timber
 
@@ -17,7 +18,7 @@ import timber.log.Timber
 /**
  * Created by rodbailey on 25/2/18.
  */
-class NewsAssetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class NewsAssetListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 	@BindView(R.id.tv_news_asset_headline)
 	lateinit var headlineTextView: TextView
@@ -35,7 +36,7 @@ class NewsAssetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 		ButterKnife.bind(this, itemView)
 	}
 
-	fun bind(item: NewsAssetDAO, clickListener: INewsAssetClickListener) {
+	fun bind(item: NewsAssetDAO, clickListener: INewsAssetListItemClickListener) {
 		// Copy item data into text fields for headline, byline and abstract
 		headlineTextView.text = item.headline
 		bylineTextView.text = item.byline

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bailey.rod.kotlinnewsreader.ui.MainActivity">
+    tools:context="com.bailey.rod.kotlinnewsreader.newsassetlist.view.NewsAssetListActivity">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/srl_news_asset_list_swipe_refresh_layout"

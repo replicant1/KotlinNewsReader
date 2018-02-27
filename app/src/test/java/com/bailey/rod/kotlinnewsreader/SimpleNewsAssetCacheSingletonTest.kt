@@ -1,6 +1,6 @@
 package com.bailey.rod.kotlinnewsreader
 
-import com.bailey.rod.kotlinnewsreader.data.NewsAssetDAO
+import com.bailey.rod.kotlinnewsreader.data.dao.NewsAssetDAO
 import com.bailey.rod.kotlinnewsreader.data.cache.INewsAssetCache
 import com.bailey.rod.kotlinnewsreader.data.cache.SimpleNewsAssetCacheSingleton
 import junit.framework.Assert.*
@@ -15,9 +15,9 @@ class SimpleNewsAssetCacheSingletonTest {
 	companion object {
 		val ASSET_1234_ID = 1234L
 		val ASSET_5678_ID = 5678L
-		val ASSET_1234 = NewsAssetDAO(ASSET_1234_ID, null, null, null, null, null)
-		val ASSET_5678 = NewsAssetDAO(ASSET_5678_ID, null, null, null, null, null)
-		val ASSET_WITH_NULL_ID = NewsAssetDAO(null, null, null, null, null, null)
+		val ASSET_1234 = NewsAssetDAO(ASSET_1234_ID, null, null, null, null, null, null)
+		val ASSET_5678 = NewsAssetDAO(ASSET_5678_ID, null, null, null, null, null, null)
+		val ASSET_WITH_NULL_ID = NewsAssetDAO(null, null, null, null, null, null, null)
 	}
 
 	lateinit var cache: INewsAssetCache

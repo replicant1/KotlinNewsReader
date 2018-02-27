@@ -2,15 +2,14 @@ package com.bailey.rod.kotlinnewsreader;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.bailey.rod.kotlinnewsreader.extensions.ContextExtensionsKt;
-import com.bailey.rod.kotlinnewsreader.ui.MainActivity;
-import com.bailey.rod.kotlinnewsreader.ui.MainActivity_;
+import com.bailey.rod.kotlinnewsreader.newsassetlist.view.NewsAssetListActivity;
+import com.bailey.rod.kotlinnewsreader.newsassetlist.view.NewsAssetListActivity_;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,7 +25,7 @@ import java.io.IOException;
 public class NewsAssetsListScreenTest {
 
 	@Rule
-	public ActivityTestRule<MainActivity_> activityRule = new ActivityTestRule<MainActivity_>(MainActivity_.class) {
+	public ActivityTestRule<NewsAssetListActivity_> activityRule = new ActivityTestRule<NewsAssetListActivity_>(NewsAssetListActivity_.class) {
 		@Override
 		protected Intent getActivityIntent() {
 			Intent intent = new Intent();
@@ -37,9 +36,8 @@ public class NewsAssetsListScreenTest {
 			try {
 				String fileContent = ContextExtensionsKt.assetFileAsString(appContext,
 						ParseNewsAssetsTest.Companion.getTEST_JSON_FILE_VALID());
-				intent.putExtra(MainActivity.Companion.getJSON_STRING_EXTRA(), fileContent);
-			}
-			catch (IOException iox) {
+				intent.putExtra(NewsAssetListActivity.Companion.getJSON_STRING_EXTRA(), fileContent);
+			} catch (IOException iox) {
 				System.err.println(iox);
 			}
 			return intent;
