@@ -6,8 +6,5 @@ package com.bailey.rod.kotlinnewsreader.app.command
  */
 interface ICommandErrorHandler {
 
-	/**
-	 * @param ex The original cause of the error.
-	 */
-	fun onError(ex: Throwable)
+	fun showError()
 }

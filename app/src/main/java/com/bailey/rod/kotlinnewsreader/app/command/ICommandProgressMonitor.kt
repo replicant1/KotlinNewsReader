@@ -1,5 +1,7 @@
 package com.bailey.rod.kotlinnewsreader.app.command
 
+import android.support.annotation.StringRes
+
 /**
  * Used to start and stop the display of an indeterminate progress monitor. Invoked
  * appropriately by the [CommandEngine]. In event of an error, the [CommandEngine] will

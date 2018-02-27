@@ -7,6 +7,7 @@ import io.reactivex.functions.Action
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import org.androidannotations.annotations.Trace
+import timber.log.Timber
 import java.util.concurrent.Callable
 
 /**
@@ -61,9 +62,10 @@ object CommandEngine {
 						object : Consumer<Throwable> {
 							override fun accept(t: Throwable) {
 								monitor.stopProgress()
-								error.onError(t)
+								error.showError()
+								Timber.w(t)
 							}
-						}, // onError
+						}, // showError
 
 						object : Action {
 							override fun run() {

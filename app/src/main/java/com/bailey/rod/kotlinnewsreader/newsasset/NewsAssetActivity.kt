@@ -12,7 +12,9 @@ import org.androidannotations.annotations.ViewById
 import timber.log.Timber
 
 /**
- *
+ * Activity that presents a WebView into which a URI is passed. This URI
+ * is supplied in the launch Intent for this activity. If the URI is badly
+ * formatted, no action is taken.
  */
 @EActivity(R.layout.activity_news_asset)
 open class NewsAssetActivity : AppCompatActivity() {

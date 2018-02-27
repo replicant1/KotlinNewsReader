@@ -1,3 +1,5 @@
 <resources>
     <string name="news_assets_list_load_progress_msg">Loading news&#8230;</string>
+    <string name="news_assets_list_load_error_msg">Error loading news. Please try again later.</string>
+    <string name="news_assets_list_uri_parse_error">Badly formatted URI in launch Intent</string>
 </resources>

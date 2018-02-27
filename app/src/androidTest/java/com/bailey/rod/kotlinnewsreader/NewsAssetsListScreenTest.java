@@ -36,7 +36,7 @@ public class NewsAssetsListScreenTest {
 			try {
 				String fileContent = ContextExtensionsKt.assetFileAsString(appContext,
 						ParseNewsAssetsTest.Companion.getTEST_JSON_FILE_VALID());
-				intent.putExtra(NewsAssetListActivity.Companion.getJSON_STRING_EXTRA(), fileContent);
+				intent.putExtra(NewsAssetListActivity.Companion.getJSON_STRING_INTENT_EXTRA(), fileContent);
 			} catch (IOException iox) {
 				System.err.println(iox);
 			}

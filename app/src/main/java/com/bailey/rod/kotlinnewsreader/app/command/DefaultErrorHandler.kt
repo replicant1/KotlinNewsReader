@@ -10,9 +10,7 @@ import timber.log.Timber
  */
 class DefaultErrorHandler(val ctx: Context, val message: String) : ICommandErrorHandler {
 
-	override fun onError(ex: Throwable) {
-		Timber.w(ex)
-
+	override fun showError() {
 		AlertDialog.Builder(ctx)
 				.setTitle(R.string.error_dialog_title)
 				.setMessage(message)
