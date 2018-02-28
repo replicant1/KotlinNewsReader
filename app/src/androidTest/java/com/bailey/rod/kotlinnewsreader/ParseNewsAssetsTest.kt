@@ -31,7 +31,7 @@ class ParseNewsAssetsTest {
 
 	@Test
 	fun testParseJsonFileToCorrectNumberOfNewsAssets() {
-		val assetList: NewsAssetListDAO? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID)
+		val assetList: NewsAssetListDAO? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID_14_ASSETS)
 		assertNotNull(assetList)
 		assertNotNull(assetList?.assets)
 		assertTrue(assetList?.assets?.isNotEmpty() ?: false)
@@ -40,7 +40,7 @@ class ParseNewsAssetsTest {
 
 	@Test
 	fun testParseJsonFileFirstAsset() {
-		val assetList: NewsAssetListDAO? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID)
+		val assetList: NewsAssetListDAO? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID_14_ASSETS)
 		val firstAsset: NewsAssetDAO? = assetList?.assets?.first()
 		assertNotNull(firstAsset)
 		assertEquals(1029434891L, firstAsset?.id)
@@ -52,7 +52,7 @@ class ParseNewsAssetsTest {
 
 	@Test
 	fun testParseJsonFileFirstAssetRelatedImages() {
-		val assetList: NewsAssetListDAO? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID)
+		val assetList: NewsAssetListDAO? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID_14_ASSETS)
 		val firstAsset: NewsAssetDAO? = assetList?.assets?.first()
 		val relatedImages: List<RelatedImageDAO>? = firstAsset?.relatedImages
 		assertNotNull(relatedImages)
@@ -61,7 +61,7 @@ class ParseNewsAssetsTest {
 
 	@Test
 	fun testParseJsonFileFirstAssetFirstRelatedImage() {
-		val assetList: NewsAssetListDAO? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID)
+		val assetList: NewsAssetListDAO? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID_14_ASSETS)
 		val firstAsset: NewsAssetDAO? = assetList?.assets?.first()
 		val relatedImages: List<RelatedImageDAO>? = firstAsset?.relatedImages
 		val firstRelatedImage: RelatedImageDAO? = relatedImages?.first()
@@ -87,11 +87,11 @@ class ParseNewsAssetsTest {
 
 	private fun readJsonFileToString(): String {
 		val appContext = InstrumentationRegistry.getContext()
-		return appContext.assetFileAsString(TEST_JSON_FILE_VALID)
+		return appContext.assetFileAsString(TEST_JSON_FILE_VALID_14_ASSETS)
 	}
 
 	companion object {
-		val TEST_JSON_FILE_VALID: String = "valid_json_23FEB2018.txt"
+		val TEST_JSON_FILE_VALID_14_ASSETS: String = "valid_json_fourteen_assets.txt"
 		val TEST_JSON_FILE_INVALID: String = "invalid_json_truncated.txt"
 	}
 }

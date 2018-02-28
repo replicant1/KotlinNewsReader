@@ -14,7 +14,7 @@ class ContextExtensionsTest {
 	@Test
 	fun testReadExistingAssetFileAsString() {
 		val appContext = InstrumentationRegistry.getContext();
-		val fileContent = appContext.assetFileAsString(ParseNewsAssetsTest.TEST_JSON_FILE_VALID)
+		val fileContent = appContext.assetFileAsString(ParseNewsAssetsTest.TEST_JSON_FILE_VALID_14_ASSETS)
 		assertNotNull(fileContent)
 		assert(fileContent.isNotBlank())
 		assert(fileContent.isNotEmpty())

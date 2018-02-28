@@ -9,7 +9,14 @@ import timber.log.Timber
  */
 object SimpleNewsAssetCacheSingleton : INewsAssetCache {
 
-	val cache: HashMap<Long, NewsAssetDAO> = HashMap()
+	private val cache: HashMap<Long, NewsAssetDAO> = HashMap()
+
+	/**
+	 * This property exists simply to facilitate unit testing. It prevents this class
+	 * try to access the event bus from a non-main thread when being directly invoked
+	 * from a test case, which Otto does not like.
+	 */
+	var testMode: Boolean = false
 
 	override fun clear() {
 		cache.clear()
@@ -60,6 +67,8 @@ object SimpleNewsAssetCacheSingleton : INewsAssetCache {
 
 	private fun sendModifiedEvent() {
 		Timber.d("Sending cache modified event")
-		KotlinNewsReaderApplication.bus.post(NewsAssetCacheModifiedEvent())
+		if (!testMode) {
+			KotlinNewsReaderApplication.bus.post(NewsAssetCacheModifiedEvent())
+		}
 	}
 }

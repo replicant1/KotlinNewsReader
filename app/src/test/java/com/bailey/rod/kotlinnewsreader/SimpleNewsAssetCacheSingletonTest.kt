@@ -1,14 +1,13 @@
 package com.bailey.rod.kotlinnewsreader
 
-import com.bailey.rod.kotlinnewsreader.data.dao.NewsAssetDAO
-import com.bailey.rod.kotlinnewsreader.data.cache.INewsAssetCache
 import com.bailey.rod.kotlinnewsreader.data.cache.SimpleNewsAssetCacheSingleton
+import com.bailey.rod.kotlinnewsreader.data.dao.NewsAssetDAO
 import junit.framework.Assert.*
 import org.junit.Before
 import org.junit.Test
 
 /**
- * Un-instrumented tests for the SimpleNewsAssetCacheSingleton class.
+ * Instrumented tests for the SimpleNewsAssetCacheSingleton class.
  */
 class SimpleNewsAssetCacheSingletonTest {
 
@@ -20,11 +19,12 @@ class SimpleNewsAssetCacheSingletonTest {
 		val ASSET_WITH_NULL_ID = NewsAssetDAO(null, null, null, null, null, null, null)
 	}
 
-	var cache: INewsAssetCache = SimpleNewsAssetCacheSingleton
+	private var cache: SimpleNewsAssetCacheSingleton = SimpleNewsAssetCacheSingleton
 
 
 	@Before
 	fun clearCacheBeforeEachTest() {
+		cache.testMode = true
 		cache.clear()
 	}
 
