@@ -39,7 +39,7 @@ public class NewsAssetsListScreenTest {
 			intent.setAction(Intent.ACTION_MAIN);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-			Context appContext = InstrumentationRegistry.getTargetContext();
+			Context appContext = InstrumentationRegistry.getContext();
 			try {
 				String fileContent = ContextExtensionsKt.assetFileAsString(appContext,
 						ParseNewsAssetsTest.Companion.getTEST_JSON_FILE_VALID());
@@ -51,12 +51,7 @@ public class NewsAssetsListScreenTest {
 		}
 	};
 
-//	@Test
-	public void dummyTest() {
-		System.out.println("activity=" + activityRule.getActivity());
-	}
-
-	//@Test
+	@Test
 	public void testFirstItemInListHasCorrectText() {
 //		Espresso.onView(ViewMatchers.withId(R.id.rv_news_asset_list)).perform(RecyclerViewActions
 //				.actionOnItemAtPosition(0, ViewActions.click()));
@@ -79,7 +74,8 @@ public class NewsAssetsListScreenTest {
 	}
 
 	@Test
-	public void testOffScreenItemInListHasCorrectText() {
+	public void testLastItemInListHasCorrectText() {
+		// The last item in the list is off-screen.
 		// Scroll down so that last list item is visible. Once visible, it's text can be inspected.
 		Espresso.onView(ViewMatchers.withId(R.id.rv_news_asset_list)).perform(RecyclerViewActions.scrollToPosition
 				(13));

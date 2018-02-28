@@ -20,12 +20,12 @@ class SimpleNewsAssetCacheSingletonTest {
 		val ASSET_WITH_NULL_ID = NewsAssetDAO(null, null, null, null, null, null, null)
 	}
 
-	lateinit var cache: INewsAssetCache
+	var cache: INewsAssetCache = SimpleNewsAssetCacheSingleton
 
 
 	@Before
-	fun recreateCacheBeforeEachTest() {
-		cache = SimpleNewsAssetCacheSingleton()
+	fun clearCacheBeforeEachTest() {
+		cache.clear()
 	}
 
 	@Test
