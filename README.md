@@ -13,11 +13,19 @@ unit testing practice.
   
 The requirements document is in a MarkDown file [here](/doc/task_android.md)
 
+This app is written in **Kotlin**. Where possible, the unit tests are also written in Kotlin.
+
 # Building the app
 
 - The app was developed in Android Studio 3.0.1 (stable).
 - The code (and this document) is stored in a Git repository at `https://github.com/replicant1/KotlinNewsReader.git`
 - The app targets Android Oreo 8.1 (API 27) and will work on Android Ice Cream Sandwich 4.0.3/4 (API 15) upwards
+
+# Download
+
+You can download an APK of this app from the following location:
+
+<Locaation here>
 
 # Screenshots
 
@@ -102,7 +110,7 @@ I force them to use my own WebView.
 The requirements make no mention of how the app should handle changes in device orientation. For simplicity
 I decided to lock it to portrait orientation.
 
-# Future Improvement
+# Future Improvements
 
 Had I more time, I would've like to make the following improvements.
 
@@ -116,13 +124,23 @@ or something similar.
 
 - Offer different layouts beyond a simple list. This is easily implemented by switching the layout managers for the 
 `RecyclerView` to, say, a `GridLayoutManager` so that the synopsis' appear in 2 or more columns. Viz:
+
 ![Screenshot](/doc/kotlin_news_reader_two_columns.png)
 
 # Test Coverage
 
-Current code coverage of the Espresso tests is 85%, as shown in the following report:
+This project contains both instrumented (Espresso) unit tests and un-instrumented (JUnit) unit tests. 
+Unfortunately, due to a persistent bug in Android Studio, it is currently very difficult to get code coverage
+statistics on instrumented tests.
 
-![Test Coverage](/doc/espresso-test-coverage.png)
+It is *possible* to do it using Android Studio 3.2 Canary 4 (a preview build). But there are a few problems with
+this:
 
-There are a few issues in the "Issue tracker" for this repository that should help get this up to 100% 
+- The requirements specify one should use a "stable" version of Android Studio
+- The upgrade to Android Studio 3.2 requires an upgrade in project format that is not guaranteed backwards compatible 
+with Android Studio 3.0.1
+- Even from the preview version of Android Studio, it is tedious to get the coverage statistics on instrumented
+tests. The unwieldy process is described here: http://www.qaautomated.com/2016/03/how-to-find-code-coverage-with-jacoco.html
+
+Because of these difficulties, I have not currently obtained code coverage for the instrumented unit tests.
 
