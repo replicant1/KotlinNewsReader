@@ -102,8 +102,10 @@ open class NewsAssetListActivity : BaseViewActivity(), INewsAssetListView {
 	}
 
 	override fun refresh(listData: Collection<NewsAssetDAO>) {
+		// Add assets to list in reverse chronological order (newest first)
 		val dataAsList = LinkedList<NewsAssetDAO>()
-		dataAsList.addAll(listData)
+		Collections.sort(dataAsList)
+		dataAsList.addAll(dataAsList)
 		adapter = NewsAssetListAdapter(dataAsList, newsAssetClickListener)
 		recyclerView.adapter = adapter
 		swipeRefreshLayout.isRefreshing = false
