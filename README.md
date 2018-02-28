@@ -21,10 +21,13 @@ The requirements document is in a MarkDown file [here](/doc/task_android.md)
 
 # Screenshots
 
-This is what the app looks like when it has successfully loaded a set of News Assets (each article summary is called 
-a "News Asset").
+This is what the app looks like when it has successfully loaded a set of News Assets:
 
 ![Screenshot](/doc/kotlin_news_reader_load_complete.png)
+
+Here is what the app looks like *while* it is loading the News Assets:
+
+![Screenshot](/doc/kotlin_news_reader_loading.png)
 
 # Design Overview
 
@@ -104,12 +107,16 @@ I decided to lock it to portrait orientation.
 Had I more time, I would've like to make the following improvements.
 
 - Implement a disk-based caching strategy for the news assets e.g. using files or SQL.
+
 - Use Glide's "placeholder" capability to put a progress monitor over thumbnails while they are loading.
-- Offer different layouts beyond a simple list. This is easily implemented by switching the layout managers for the 
-`RecyclerView` to, say, a `GridLayoutManager` so that the synopsis' appear in 2 or more columns.
+
 - When there are no news articles in the feed, or the feed can't be parsed, don't just 
 display an empty list. Display a placeholder where the list should be, saying "The news feed is currently empty"
 or something similar.
+
+- Offer different layouts beyond a simple list. This is easily implemented by switching the layout managers for the 
+`RecyclerView` to, say, a `GridLayoutManager` so that the synopsis' appear in 2 or more columns. Viz:
+![Screenshot](/doc/kotlin_news_reader_two_columns.png)
 
 # Test Coverage
 
