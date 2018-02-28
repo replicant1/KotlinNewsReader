@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.bailey.rod.kotlinnewsreader.BuildConfig
 import com.bailey.rod.kotlinnewsreader.R
 import com.bailey.rod.kotlinnewsreader.common.BaseViewActivity
@@ -16,6 +17,7 @@ import com.bailey.rod.kotlinnewsreader.newsassetlist.pres.INewsAssetListPresente
 import com.bailey.rod.kotlinnewsreader.newsassetlist.pres.NewsAssetListPresenter
 import com.bailey.rod.kotlinnewsreader.newsassetlist.view.NewsAssetListActivity.Companion.JSON_STRING_INTENT_EXTRA
 import com.dgreenhalgh.android.simpleitemdecoration.linear.DividerItemDecoration
+import kotlinx.android.synthetic.main.activity_main.*
 import org.androidannotations.annotations.*
 import timber.log.Timber
 import java.net.URISyntaxException
@@ -41,6 +43,9 @@ open class NewsAssetListActivity : BaseViewActivity(), INewsAssetListView {
 
 	@ViewById(R.id.srl_news_asset_list_swipe_refresh_layout)
 	lateinit var swipeRefreshLayout: SwipeRefreshLayout
+
+	@ViewById(R.id.rl_view_empty)
+	lateinit var emptyView: View
 
 	private var adapter: NewsAssetListAdapter? = null
 
@@ -102,6 +107,9 @@ open class NewsAssetListActivity : BaseViewActivity(), INewsAssetListView {
 		adapter = NewsAssetListAdapter(dataAsList, newsAssetClickListener)
 		recyclerView.adapter = adapter
 		swipeRefreshLayout.isRefreshing = false
+
+		rv_news_asset_list.visibility = if (listData.isEmpty()) View.GONE else View.VISIBLE
+		emptyView.visibility = if (listData.isEmpty()) View.VISIBLE else View.GONE
 	}
 
 	inner class NewsAssetClickListener() : INewsAssetListItemClickListener {

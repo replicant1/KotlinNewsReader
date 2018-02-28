@@ -1,6 +1,8 @@
 package com.bailey.rod.kotlinnewsreader;
 
 import android.support.test.espresso.Espresso;
+import android.support.test.espresso.ViewAssertion;
+import android.support.test.espresso.assertion.ViewAssertions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
@@ -28,8 +30,13 @@ public class ZeroNewsAssetsListScreenTest {
 					ParseNewsAssetsTest.Companion.getTEST_JSON_FILE_VALID_0_ASSETS());
 
 	@Test
-	public void testThereAreZeroItemsInTheList() {
+	public void testEmptyViewIsShowing() {
+		// "Empty" message is showing
+		Espresso.onView(ViewMatchers.withId(R.id.rl_view_empty)).check(
+				ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+
+		// Asset list is hidden
 		Espresso.onView(ViewMatchers.withId(R.id.rv_news_asset_list)).check(
-				new RecyclerViewItemCountAssertion(0));
+				ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
 	}
 }
