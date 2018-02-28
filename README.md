@@ -24,6 +24,8 @@ The requirements document is in a MarkDown file [here](/doc/task_android.md)
 This is what the app looks like when it has successfully loaded a set of News Assets (each article summary is called 
 a "News Asset").
 
+[Screenshot](/doc/kotlin_news_reader_load_complete.png)
+
 # Design Overview
 
 Although this coding exercise is small in scope, I have tried to maintain the same architectural and testing
