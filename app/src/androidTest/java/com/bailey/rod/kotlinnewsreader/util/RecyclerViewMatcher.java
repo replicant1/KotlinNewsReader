@@ -1,4 +1,4 @@
-package com.bailey.rod.kotlinnewsreader;
+package com.bailey.rod.kotlinnewsreader.util;
 
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,8 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
 /**
- * Created by dannyroa on 5/10/15.
+ * This class comes from here:
+ * https://spin.atomicobject.com/2016/04/15/espresso-testing-recyclerviews/
  */
 public class RecyclerViewMatcher {
 	private final int recyclerViewId;
@@ -66,5 +67,9 @@ public class RecyclerViewMatcher {
 
 			}
 		};
+	}
+
+	public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
+		return new RecyclerViewMatcher(recyclerViewId);
 	}
 }

@@ -73,6 +73,14 @@ class ParseNewsAssetsTest {
 		assertEquals(0, firstRelatedImage?.height)
 	}
 
+	@Test
+	fun testParseZeroAssetsFile() {
+		val assetList: NewsAssetListDAO? = parseJsonFileToAssetList(TEST_JSON_FILE_VALID_0_ASSETS)
+		assertNotNull(assetList)
+		assertNotNull(assetList?.assets)
+		assertEquals(0, assetList?.assets?.size)
+	}
+
 	@Test(expected = JsonParseException::class)
 	fun testParseInvalidJsonFileThrowsException() {
 		val assetList: NewsAssetListDAO? = parseJsonFileToAssetList(TEST_JSON_FILE_INVALID)
@@ -92,6 +100,7 @@ class ParseNewsAssetsTest {
 
 	companion object {
 		val TEST_JSON_FILE_VALID_14_ASSETS: String = "valid_json_fourteen_assets.txt"
+		val TEST_JSON_FILE_VALID_0_ASSETS: String = "valid_json_zero_assets.txt"
 		val TEST_JSON_FILE_INVALID: String = "invalid_json_truncated.txt"
 	}
 }
