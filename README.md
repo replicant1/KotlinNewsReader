@@ -37,6 +37,10 @@ Here is what the app looks like *while* it is loading the News Assets:
 
 ![Screenshot](/doc/kotlin_news_reader_loading.png)
 
+When the news feed is found to have no articles in it:
+
+![Screenshot](/doc/kotlin_news_reader_empty_list.png)
+
 # Design Overview
 
 Although this coding exercise is small in scope, I have tried to maintain the same architectural and testing
