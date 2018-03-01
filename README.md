@@ -65,12 +65,17 @@ The following collaboration diagram shows how the refresh of the news asset list
 
 (1) In response to an initial load of the view, or the user pressing the "Refresh" button, the view instructs its
 Presenter to load the news asset list data
+
 (2) The presenter spawns an asynchronous command using the `ICommand` hierarchy. In so doing, it specifies how
 error handling, progress monitoring and success handling is to be done.
+
 (3) The JSON is loaded by the `LoadNewsAssetCommand` which is executing in a background thread.
+
 (4) Once loaded, the news data is locally cached in the `SimpleNewsAssetCacheSingleton`. The cache responds to the
 insertion of new data by firing off an event on the global event bus for the app.
+
 (5) The Presenter receives the event and responds by retrieving the new contents of the cache
+
 (6) The data from the cache is passed back to the View, so that the news asset list can be refreshed.
 
 Features of the design:
