@@ -94,6 +94,7 @@ class NewsAssetListPresenter : INewsAssetListPresenter {
 	inner class LoadNewsAssetsSuccessHandler : ICommandSuccessHandler {
 		override fun onSuccess(result: Any?) {
 			val loadedAssets: NewsAssetListDAO? = result as NewsAssetListDAO?
+			Timber.i("Success handler receives loaded assets: ${loadedAssets}")
 			//  Add to cache. Cache sends event to listener (this.onNewsAssetCacheModifiedEvent).
 			if ((loadedAssets != null) && (loadedAssets.assets != null)) {
 				SimpleNewsAssetCacheSingleton.putAll(loadedAssets.assets)

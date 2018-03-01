@@ -20,8 +20,6 @@ import java.io.IOException;
  * JUnit test rule that customizes the Intent that launches a NewsAssetListActivity to contain
  * some JSON read from a file in the /assets directory.
  */
-@RunWith(AndroidJUnit4.class)
-@LargeTest
 public class NewsAssetListActivityTestRule<T extends Activity> extends ActivityTestRule<T> {
 
 	private final String jsonFilename;

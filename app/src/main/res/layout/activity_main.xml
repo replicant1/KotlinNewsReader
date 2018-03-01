@@ -14,13 +14,13 @@
 
         <include
             layout="@layout/view_empty_news_asset_list"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/srl_news_asset_list_swipe_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_news_asset_list"

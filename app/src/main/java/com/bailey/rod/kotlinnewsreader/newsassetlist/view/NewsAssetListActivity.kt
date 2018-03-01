@@ -102,16 +102,19 @@ open class NewsAssetListActivity : BaseViewActivity(), INewsAssetListView {
 	}
 
 	override fun refresh(listData: Collection<NewsAssetDAO>) {
+		Timber.d("Into refresh() with listData=$listData")
+
 		// Add assets to list in reverse chronological order (newest first)
-		val dataAsList = LinkedList<NewsAssetDAO>()
-		Collections.sort(dataAsList)
-		dataAsList.addAll(dataAsList)
-		adapter = NewsAssetListAdapter(dataAsList, newsAssetClickListener)
+		val sortedAssetList = LinkedList<NewsAssetDAO>()
+		sortedAssetList.addAll(listData)
+		Collections.sort(sortedAssetList)
+
+		adapter = NewsAssetListAdapter(sortedAssetList, newsAssetClickListener)
 		recyclerView.adapter = adapter
 		swipeRefreshLayout.isRefreshing = false
 
-		rv_news_asset_list.visibility = if (listData.isEmpty()) View.GONE else View.VISIBLE
-		emptyView.visibility = if (listData.isEmpty()) View.VISIBLE else View.GONE
+		rv_news_asset_list.visibility = if (sortedAssetList.isEmpty()) View.GONE else View.VISIBLE
+		emptyView.visibility = if (sortedAssetList.isEmpty()) View.VISIBLE else View.GONE
 	}
 
 	inner class NewsAssetClickListener() : INewsAssetListItemClickListener {
