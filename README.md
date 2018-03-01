@@ -51,17 +51,38 @@ approaches that I would take for a larger system.
 Here is the design behind the News Asset List - which is the sole screen of the app. It's division into
 architectural layers is illustrated.
 
-_Layered architecture diagram goes here - View, Model, Command, Service_
+Use of MVP is identified through use of `IView` and `IPresenter` interfaces:
+
+![UML](/doc/knn_iview_ipresenter.png)
+
+Handling asynchrony is something I have traditionally done by using the GOF `Command` pattern:
+
+![UML](/doc/knn_icommand.png)
+
+The following collaboration diagram shows how the refresh of the news asset list is achieved:
+
+![UML](/doc/mvp_collab.png)
+
+(1) In response to an initial load of the view, or the user pressing the "Refresh" button, the view instructs its
+Presenter to load the news asset list data
+(2) The presenter spawns an asynchronous command using the `ICommand` hierarchy. In so doing, it specifies how
+error handling, progress monitoring and success handling is to be done.
+(3) The JSON is loaded by the `LoadNewsAssetCommand` which is executing in a background thread.
+(4) Once loaded, the news data is locally cached in the `SimpleNewsAssetCacheSingleton`. The cache responds to the
+insertion of new data by firing off an event on the global event bus for the app.
+(5) The Presenter receives the event and responds by retrieving the new contents of the cache
+(6) The data from the cache is passed back to the View, so that the news asset list can be refreshed.
 
 Features of the design:
 
 - The overall app architecture and the structure of individual features follow the `MVP` pattern.
 - Views as simple and "dumb" (devoid of logic) as possible.
-- As per usual MVP, each layer only communicates with the layer above and below it. View never talks to Model directly, but only via the intermediary of the presenter. Model never talks to View directly, but only via the intermediary of the presenter.
-- Runtime configuration properties are set in the file `assets/config.properties`
-- Views and Presenters communicate via well defined interfaces e.g. `IScenario1View`, `IScenario1Presenter`.
-- Presenters send messages to Models synchronously, via well defined interfaces. 
-- Models send messages to Presenters asynchrounsly using Events and an EventBus.
+- As per usual MVP, each layer only communicates with the layer above and below it. View never talks to Model directly, 
+but only via the intermediary of the presenter. 
+Model never talks to View directly, but only via the intermediary of the presenter.
+- Views and Presenters communicate via well defined interfaces e.g. `INewsAssetList`, `INewsAssetListPresenter`.
+- Models send messages to Presenters asynchronously using Events and an EventBus. e.g. `SimpleNewsAssetCacheSingleton`
+sends `NewsAssetCacheModifiedEvent`s to `NewsAssetListPresenter`
 
 # Libraries
 
@@ -133,7 +154,9 @@ or something similar.
 
 # Test Coverage
 
-This project contains both instrumented (Espresso) unit tests and un-instrumented (JUnit) unit tests. 
+This project contains both instrumented (Espresso) unit tests and un-instrumented (JUnit) unit tests. At
+the time of writing there were 13 instrumented tests and 19 uninstrumented tests.
+
 Unfortunately, due to a persistent bug in Android Studio, it is currently very difficult to get code coverage
 statistics on instrumented tests.
 
